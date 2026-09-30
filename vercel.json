@@ -1,9 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "api/refresh.py", "use": "@vercel/python" }
-  ],
-  "routes": [
-    { "src": "/api/refresh", "destination": "/api/refresh.py" }
+  "rewrites": [
+    { "source": "/api/refresh", "destination": "/api/refresh.py" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
