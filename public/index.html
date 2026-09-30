@@ -9,7 +9,7 @@
 <body class="bg-slate-950 text-slate-100 flex flex-col items-center min-h-screen p-6">
     <div class="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl mt-10">
         <h1 class="text-2xl font-bold text-purple-400 mb-2">MeowTool Web - Cookie Refresher</h1>
-        <p class="text-sm text-slate-400 mb-6">Paste your .ROBLOSECURITY cookie below to refresh it securely via Vercel serverless backend.</p>
+        <p class="text-sm text-slate-400 mb-6">Paste your cookie below. It will refresh using your embedded proxy safely.</p>
         
         <div class="mb-4">
             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Target Cookie</label>
@@ -38,7 +38,7 @@
             }
 
             btn.disabled = true;
-            btn.innerText = 'Refreshing...';
+            btn.innerText = 'Refreshing via Proxy...';
             output.value = 'Processing request...';
 
             try {
