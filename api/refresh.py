@@ -1,6 +1,5 @@
 from http.server import BaseHTTPRequestHandler
 import json
-import urllib.parse
 import requests
 
 class handler(BaseHTTPRequestHandler):
@@ -19,12 +18,7 @@ class handler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": "No cookie provided"}).encode('utf-8'))
                 return
 
-            # Clean cookie formatting warning prefix if present
-            if "_|WARNING:-DO-NOT-SHARE-THIS." in cookie:
-                # keep processing raw value
-                pass
-
-            new_cookie = self.refresh_roblox_cookie(cookie)
+            new_cookie = self.refresh_roblox_cookie_with_proxy(cookie)
             
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
@@ -37,16 +31,31 @@ class handler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
 
-    def refresh_roblox_cookie(self, cookie):
+    def refresh_roblox_cookie_with_proxy(self, cookie):
         session = requests.Session()
+        
+        # Configure your proxy: IP:PORT:USER:PASSWORD
+        proxy_raw = "84.247.60.125:6095:evdqdybg:zw4jmd3h2l63"
+        p_parts = proxy_raw.split(":")
+        
+        proxy_url = f"http://{p_parts[2]}:{p_parts[3]}@{p_parts[0]}:{p_parts[1]}"
+        session.proxies = {
+            "http": proxy_url,
+            "https": proxy_url
+        }
+        
         session.cookies.set(".ROBLOSECURITY", cookie, domain=".roblox.com")
         
         # Step 1: Get CSRF token
-        csrf_res = session.post("https://auth.roblox.com/v2/logout")
+        try:
+            csrf_res = session.post("https://auth.roblox.com/v2/logout", timeout=10)
+        except Exception as e:
+            return f"Proxy Connection Error: {str(e)}"
+            
         csrf_token = csrf_res.headers.get("x-csrf-token")
         
         if not csrf_token:
-            return "Invalid or Expired Cookie"
+            return "Invalid/Expired Cookie or Proxy Blocked"
             
         headers = {
             "X-CSRF-TOKEN": csrf_token,
@@ -76,7 +85,6 @@ class handler(BaseHTTPRequestHandler):
         
         set_cookie_header = redeem_res.headers.get("Set-Cookie", "")
         if ".ROBLOSECURITY=" in set_cookie_header:
-            # Parse out the new cookie string
             try:
                 part = set_cookie_header.split(".ROBLOSECURITY=")[1]
                 new_cookie = part.split(";")[0]
