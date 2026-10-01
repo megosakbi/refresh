@@ -6,7 +6,7 @@
 // DIRECT GOOGLE DRIVE DOWNLOAD
 
 const EXTENSION_DOWNLOAD_URL =
-    "https://drive.google.com/uc?export=download&id=1TYwDfJKxa4qo63TWu4AuglAjWMY03gki";
+    "https://drive.google.com/uc?export=download&id=1mFxUiK-3GEVEMDM9SjTwb7LInM49k5KI";
 
 
 // =============================================
