@@ -1,1242 +1,849 @@
-// =============================================
-// RBXCURSOR WEBSITE
-// =============================================
+// ============================================
+// EXTENSIONS
+// ADD / REMOVE YOUR EXTENSIONS HERE
+// ============================================
+
+const EXTENSIONS = [
+
+  {
+    name: "RBXCursor",
+
+    category: "customization",
+
+    tag: "CUSTOMIZATION",
+
+    version: "v1.0",
+
+    color: "#4ae7ff",
+
+    glow:
+      "rgba(74,231,255,.16)",
+
+    icon: "✦",
+
+    description:
+      "Custom cursors, glow effects, trails and visual cursor presets for Roblox.",
+
+    features: [
+      "Cursor FX",
+      "Glow",
+      "Trails"
+    ],
+
+    download:
+      "downloads/rbxcursor.zip"
+  },
 
 
-// DIRECT GOOGLE DRIVE DOWNLOAD
+  {
+    name: "Theme Forge",
 
-const EXTENSION_DOWNLOAD_URL =
-    "https://drive.google.com/uc?export=download&id=1mFxUiK-3GEVEMDM9SjTwb7LInM49k5KI";
+    category: "ui",
+
+    tag: "UI THEMES",
+
+    version: "v1.0",
+
+    color: "#9a6cff",
+
+    glow:
+      "rgba(154,108,255,.16)",
+
+    icon: "◫",
+
+    description:
+      "Change the default Roblox browser look with cleaner layouts and custom themes.",
+
+    features: [
+      "Themes",
+      "Dark UI",
+      "Layouts"
+    ],
+
+    download:
+      "downloads/theme-forge.zip"
+  },
 
 
-// =============================================
-// DOWNLOAD BUTTONS
-// =============================================
+  {
+    name: "Profile Plus",
 
-document
-    .querySelectorAll(".download-link")
-    .forEach(button => {
+    category: "profile",
 
-        button.href =
-            EXTENSION_DOWNLOAD_URL;
+    tag: "PROFILE",
 
-        button.target =
-            "_self";
+    version: "v1.0",
 
-    });
+    color: "#b7ff5a",
+
+    glow:
+      "rgba(183,255,90,.14)",
+
+    icon: "⌁",
+
+    description:
+      "Profile tools, cleaner layouts and extra visual upgrades for Roblox pages.",
+
+    features: [
+      "Profiles",
+      "Quick UI",
+      "Layouts"
+    ],
+
+    download:
+      "downloads/profile-plus.zip"
+  },
 
 
-const finalDownload =
-    document.querySelector("#downloadButton");
+  {
+    name: "Neon UI Kit",
+
+    category: "ui",
+
+    tag: "UI MOD",
+
+    version: "v1.0",
+
+    color: "#ff9f4a",
+
+    glow:
+      "rgba(255,159,74,.15)",
+
+    icon: "◆",
+
+    description:
+      "Adds animated accents, hover effects and a futuristic browser UI style.",
+
+    features: [
+      "Animations",
+      "UI FX",
+      "Accents"
+    ],
+
+    download:
+      "downloads/neon-ui-kit.zip"
+  }
+
+];
 
 
-if (finalDownload) {
+// ============================================
+// ELEMENTS
+// ============================================
 
-    finalDownload.href =
-        EXTENSION_DOWNLOAD_URL;
+const grid =
+  document.querySelector(
+    "#extensionGrid"
+  );
 
-    finalDownload.target =
-        "_self";
+
+const search =
+  document.querySelector(
+    "#extensionSearch"
+  );
+
+
+const filters =
+  document.querySelectorAll(
+    ".filter"
+  );
+
+
+let currentFilter =
+  "all";
+
+
+let currentSearch =
+  "";
+
+
+// ============================================
+// ESCAPE TEXT
+// ============================================
+
+function escapeHTML(text) {
+
+  return String(text)
+    .replace(
+      /[&<>"']/g,
+
+      character => ({
+
+        "&": "&amp;",
+
+        "<": "&lt;",
+
+        ">": "&gt;",
+
+        '"': "&quot;",
+
+        "'": "&#39;"
+
+      }[character])
+
+    );
 
 }
 
 
-// =============================================
-// EXTENSION PREVIEW
-// =============================================
+// ============================================
+// RENDER EXTENSION CARDS
+// ============================================
 
-const cursor =
-    document.querySelector("#cursor");
+function renderExtensions() {
 
-const cursorGlow =
-    document.querySelector("#cursorGlow");
+  const filtered =
+    EXTENSIONS.filter(
+      extension => {
 
-const selectedName =
-    document.querySelector("#selectedName");
+        const filterMatch =
 
-const glowText =
-    document.querySelector("#glowText");
+          currentFilter === "all" ||
 
-const sizeSlider =
-    document.querySelector("#size");
-
-const glowSlider =
-    document.querySelector("#glow");
-
-const opacitySlider =
-    document.querySelector("#opacity");
+          extension.category ===
+          currentFilter;
 
 
-// =============================================
-// CURSOR PRESETS
-// =============================================
+        const searchText = `
 
-const cursorTypes = {
+          ${extension.name}
 
-    paw: `
+          ${extension.tag}
 
-        <div class="paw">
+          ${extension.description}
 
-            <i class="toe toe1"></i>
+          ${extension.features.join(" ")}
 
-            <i class="toe toe2"></i>
+        `.toLowerCase();
 
-            <i class="toe toe3"></i>
 
-            <i class="toe toe4"></i>
+        const searchMatch =
 
-            <i class="pad"></i>
+          searchText.includes(
+            currentSearch.toLowerCase()
+          );
+
+
+        return (
+          filterMatch &&
+          searchMatch
+        );
+
+      }
+    );
+
+
+  if (!filtered.length) {
+
+    grid.innerHTML = `
+
+      <div class="no-results">
+
+        No extensions found.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  grid.innerHTML = filtered
+    .map(extension => `
+
+      <article
+
+        class="extension-card reveal"
+
+        style="
+
+          --accent:
+          ${extension.color};
+
+          --accent-soft:
+          ${extension.glow};
+
+        "
+
+      >
+
+        <div class="card-art">
+
+          <div class="card-grid"></div>
+
+
+          <div class="card-icon">
+
+            ${escapeHTML(
+              extension.icon
+            )}
+
+          </div>
 
         </div>
 
-    `,
+
+        <div class="card-content">
+
+          <div class="card-top">
+
+            <span class="card-tag">
+
+              ${escapeHTML(
+                extension.tag
+              )}
+
+            </span>
 
 
-    heart: `
+            <span class="card-version">
 
-        <div class="cursor-symbol">
-            ♡
+              ${escapeHTML(
+                extension.version
+              )}
+
+            </span>
+
+          </div>
+
+
+          <h3>
+
+            ${escapeHTML(
+              extension.name
+            )}
+
+          </h3>
+
+
+          <p>
+
+            ${escapeHTML(
+              extension.description
+            )}
+
+          </p>
+
+
+          <div class="card-points">
+
+            ${extension.features
+              .map(feature => `
+
+                <span>
+
+                  ${escapeHTML(
+                    feature
+                  )}
+
+                </span>
+
+              `)
+              .join("")}
+
+          </div>
+
+
+          <a
+
+            class="download-button"
+
+            href="${extension.download}"
+
+            download
+
+          >
+
+            <svg viewBox="0 0 24 24">
+
+              <path d="M12 3v12"></path>
+
+              <path d="m8 11 4 4 4-4"></path>
+
+              <path d="M5 20h14"></path>
+
+            </svg>
+
+            Download extension
+
+          </a>
+
         </div>
 
-    `,
+      </article>
+
+    `)
+    .join("");
 
 
-    star: `
+  setupReveal();
 
-        <div class="cursor-symbol">
-            ✦
-        </div>
+  setupMouseHover();
 
-    `,
+}
 
 
-    moon: `
+// ============================================
+// FILTER BUTTONS
+// ============================================
 
-        <div class="cursor-symbol">
-            ☾
-        </div>
+filters.forEach(
+  button => {
 
-    `,
+    button.addEventListener(
+      "click",
+      () => {
 
+        filters.forEach(
+          item => {
 
-    arrow: `
+            item.classList.remove(
+              "active"
+            );
 
-        <div
-            class="cursor-symbol"
-            style="
-                transform:rotate(-40deg);
-                font-size:70px;
-            "
-        >
-            ➤
-        </div>
-
-    `
-
-};
+          }
+        );
 
 
-// =============================================
-// PRESET BUTTONS
-// =============================================
-
-document
-    .querySelectorAll(".preset")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const type =
-                    button.dataset.cursor;
+        button.classList.add(
+          "active"
+        );
 
 
-                const name =
-                    button.dataset.name;
+        currentFilter =
+          button.dataset.filter;
 
 
-                if (
-                    cursorTypes[type] &&
-                    cursor
-                ) {
+        renderExtensions();
 
-                    cursor.innerHTML =
-                        cursorTypes[type];
+      }
+    );
 
-                }
+  }
+);
 
 
-                if (selectedName) {
+// ============================================
+// SEARCH
+// ============================================
 
-                    selectedName.textContent =
-                        name;
+search.addEventListener(
+  "input",
+  () => {
 
-                }
-
-
-                document
-                    .querySelectorAll(".preset")
-                    .forEach(preset => {
-
-                        preset
-                            .classList
-                            .remove("active");
-
-                    });
+    currentSearch =
+      search.value.trim();
 
 
-                button
-                    .classList
-                    .add("active");
+    renderExtensions();
+
+  }
+);
+
+
+// ============================================
+// SCROLL ANIMATIONS
+// ============================================
+
+let revealObserver;
+
+
+function setupReveal() {
+
+  if (!revealObserver) {
+
+    revealObserver =
+
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target
+                  .classList
+                  .add(
+                    "visible"
+                  );
+
+
+                revealObserver
+                  .unobserve(
+                    entry.target
+                  );
+
+              }
 
             }
+          );
+
+        },
+
+        {
+          threshold: .12
+        }
+
+      );
+
+  }
+
+
+  document
+    .querySelectorAll(
+      ".reveal:not(.visible)"
+    )
+    .forEach(
+      element => {
+
+        revealObserver.observe(
+          element
         );
 
-    });
-
-
-// =============================================
-// PREVIEW SLIDERS
-// =============================================
-
-function updateCursor() {
-
-    if (
-        !cursor ||
-        !sizeSlider ||
-        !glowSlider ||
-        !opacitySlider
-    ) {
-
-        return;
-
-    }
-
-
-    const size =
-        Number(
-            sizeSlider.value
-        );
-
-
-    const glow =
-        Number(
-            glowSlider.value
-        );
-
-
-    const opacity =
-        Number(
-            opacitySlider.value
-        );
-
-
-    const scale =
-        size / 90;
-
-
-    cursor.style.transform = `
-
-        translate(
-            -50%,
-            -50%
-        )
-
-        scale(
-            ${scale}
-        )
-
-    `;
-
-
-    cursor.style.opacity =
-        opacity / 100;
-
-
-    cursor.style.filter = `
-
-        drop-shadow(
-
-            0 0
-
-            ${5 + glow * 0.23}px
-
-            rgba(
-                255,
-                102,
-                183,
-                ${glow / 100}
-            )
-
-        )
-
-    `;
-
-
-    if (cursorGlow) {
-
-        cursorGlow.style.opacity =
-            0.1 +
-            glow / 110;
-
-    }
-
-
-    if (glowText) {
-
-        glowText.textContent =
-            glow + "%";
-
-    }
-
-
-    updateSlider(
-        sizeSlider
-    );
-
-
-    updateSlider(
-        glowSlider
-    );
-
-
-    updateSlider(
-        opacitySlider
+      }
     );
 
 }
 
 
-// =============================================
-// SLIDER COLOR
-// =============================================
+// ============================================
+// AVATAR PARALLAX
+// ============================================
 
-function updateSlider(slider) {
-
-    if (!slider) {
-
-        return;
-
-    }
+const avatarPanel =
+  document.querySelector(
+    "#avatarPanel"
+  );
 
 
-    const min =
-        Number(
-            slider.min
-        );
-
-
-    const max =
-        Number(
-            slider.max
-        );
-
-
-    const value =
-        Number(
-            slider.value
-        );
-
-
-    const percent =
-
-        (
-            (value - min) /
-            (max - min)
-        )
-
-        * 100;
-
-
-    slider.style.background = `
-
-        linear-gradient(
-
-            90deg,
-
-            #ff78be 0%,
-
-            #ff78be
-            ${percent}%,
-
-            #2b2229
-            ${percent}%,
-
-            #2b2229
-            100%
-
-        )
-
-    `;
-
-}
-
-
-[
-    sizeSlider,
-    glowSlider,
-    opacitySlider
-]
-.forEach(slider => {
-
-    if (slider) {
-
-        slider.addEventListener(
-            "input",
-            updateCursor
-        );
-
-    }
-
-});
-
-
-updateCursor();
-
-
-// =============================================
-// EXTENSION PREVIEW MOUSE
-// =============================================
-
-const preview =
-    document.querySelector("#preview");
-
-
-let lastPreviewSparkle =
-    0;
+const heroAvatar =
+  document.querySelector(
+    "#heroAvatar"
+  );
 
 
 if (
-    preview &&
-    cursor
+  avatarPanel &&
+  heroAvatar
 ) {
 
-    preview.addEventListener(
-        "mousemove",
-        event => {
+  avatarPanel.addEventListener(
+    "mousemove",
+    event => {
 
-            const rect =
-                preview
-                    .getBoundingClientRect();
+      const rect =
+        avatarPanel
+          .getBoundingClientRect();
 
 
-            let x =
-                event.clientX -
-                rect.left;
-
-
-            let y =
-                event.clientY -
-                rect.top;
-
-
-            // Stop preview cursor from
-            // entering preset menu.
-
-            x =
-                Math.min(
-                    x,
-                    rect.width - 105
-                );
-
-
-            x =
-                Math.max(
-                    70,
-                    x
-                );
-
-
-            y =
-                Math.max(
-
-                    65,
-
-                    Math.min(
-
-                        y,
-
-                        rect.height - 60
-
-                    )
-
-                );
-
-
-            cursor.style.left =
-                x + "px";
-
-
-            cursor.style.top =
-                y + "px";
-
-
-            if (cursorGlow) {
-
-                cursorGlow.style.left =
-                    x + "px";
-
-
-                cursorGlow.style.top =
-                    y + "px";
-
-            }
-
-
-            const now =
-                performance.now();
-
-
-            if (
-                now -
-                lastPreviewSparkle >
-                50
-            ) {
-
-                createPreviewSparkle(
-
-                    x - 15,
-
-                    y + 10
-
-                );
-
-
-                lastPreviewSparkle =
-                    now;
-
-            }
-
-        }
-    );
-
-
-    preview.addEventListener(
-        "mouseleave",
-        () => {
-
-            cursor.style.left =
-                "50%";
-
-
-            cursor.style.top =
-                "49%";
-
-
-            if (cursorGlow) {
-
-                cursorGlow.style.left =
-                    "50%";
-
-
-                cursorGlow.style.top =
-                    "49%";
-
-            }
-
-        }
-    );
-
-}
-
-
-// =============================================
-// PREVIEW SPARKLES
-// =============================================
-
-function createPreviewSparkle(
-    x,
-    y
-) {
-
-    if (!preview) {
-
-        return;
-
-    }
-
-
-    const sparkle =
-        document
-            .createElement(
-                "span"
-            );
-
-
-    const symbols = [
-
-        "✦",
-
-        "·",
-
-        "✧"
-
-    ];
-
-
-    sparkle.textContent =
-
-        symbols[
-
-            Math.floor(
-
-                Math.random() *
-                symbols.length
-
-            )
-
-        ];
-
-
-    sparkle.style.position =
-        "absolute";
-
-
-    sparkle.style.left =
-        x + "px";
-
-
-    sparkle.style.top =
-        y + "px";
-
-
-    sparkle.style.zIndex =
-        "4";
-
-
-    sparkle.style.pointerEvents =
-        "none";
-
-
-    sparkle.style.color =
-
-        Math.random() > .35
-
-            ? "#ff8fc9"
-
-            : "#ffffff";
-
-
-    sparkle.style.fontSize =
+      const x =
 
         (
-            5 +
-            Math.random() *
-            7
+          event.clientX -
+          rect.left
+        ) /
+
+        rect.width -
+
+        .5;
+
+
+      const y =
+
+        (
+          event.clientY -
+          rect.top
+        ) /
+
+        rect.height -
+
+        .5;
+
+
+      heroAvatar.style.transform = `
+
+        translate(
+
+          ${x * 13}px,
+
+          ${y * 8}px
+
         )
 
-        + "px";
+        rotateY(
+          ${x * 5}deg
+        )
+
+      `;
+
+    }
+  );
 
 
-    sparkle.style.textShadow =
-        "0 0 10px #ff65b5";
+  avatarPanel.addEventListener(
+    "mouseleave",
+    () => {
 
+      heroAvatar.style.transform =
+        "";
 
-    sparkle.style.opacity =
-        "1";
-
-
-    sparkle.style.transition =
-        "700ms ease";
-
-
-    preview.appendChild(
-        sparkle
-    );
-
-
-    requestAnimationFrame(
-        () => {
-
-            sparkle.style.transform = `
-
-                translate(
-
-                    ${
-                        (
-                            Math.random()
-                            - .5
-                        ) * 35
-                    }px,
-
-                    ${
-                        -25 -
-                        Math.random() * 30
-                    }px
-
-                )
-
-                scale(1.3)
-
-            `;
-
-
-            sparkle.style.opacity =
-                "0";
-
-        }
-    );
-
-
-    setTimeout(
-
-        () => {
-
-            sparkle.remove();
-
-        },
-
-        750
-
-    );
+    }
+  );
 
 }
 
 
-// =============================================
-// CUSTOM WEBSITE CURSOR
-// =============================================
+// ============================================
+// CUSTOM CURSOR
+// ============================================
 
-const canUseCustomCursor =
+const mouseDot =
+  document.querySelector(
+    "#mouseDot"
+  );
 
-    window
-        .matchMedia(
-            "(pointer: fine)"
+
+const mouseRing =
+  document.querySelector(
+    "#mouseRing"
+  );
+
+
+const finePointer =
+
+  window
+    .matchMedia(
+      "(pointer:fine)"
+    )
+    .matches;
+
+
+if (
+  finePointer &&
+  mouseDot &&
+  mouseRing
+) {
+
+  document.body.classList.add(
+    "cursor-on"
+  );
+
+
+  let mouseX =
+    innerWidth / 2;
+
+
+  let mouseY =
+    innerHeight / 2;
+
+
+  let ringX =
+    mouseX;
+
+
+  let ringY =
+    mouseY;
+
+
+  document.addEventListener(
+    "mousemove",
+    event => {
+
+      mouseX =
+        event.clientX;
+
+
+      mouseY =
+        event.clientY;
+
+
+      mouseDot.style.transform = `
+
+        translate3d(
+
+          ${mouseX}px,
+
+          ${mouseY}px,
+
+          0
+
         )
-        .matches;
+
+      `;
+
+    },
+
+    {
+      passive: true
+    }
+
+  );
 
 
-if (canUseCustomCursor) {
+  function animateRing() {
 
-    document
-        .documentElement
-        .classList
-        .add(
-            "custom-cursor-enabled"
-        );
+    ringX +=
 
+      (
+        mouseX -
+        ringX
+      )
 
-    // CREATE CURSOR
-
-    const siteCursor =
-        document
-            .createElement(
-                "div"
-            );
+      * .16;
 
 
-    siteCursor.className =
-        "site-cursor";
+    ringY +=
+
+      (
+        mouseY -
+        ringY
+      )
+
+      * .16;
 
 
-    siteCursor.innerHTML = `
+    mouseRing.style.transform = `
 
-        <div
-            class="site-cursor-ring"
-        ></div>
+      translate3d(
 
+        ${ringX}px,
 
-        <div
-            class="site-cursor-core"
-        >
-            ✦
-        </div>
+        ${ringY}px,
+
+        0
+
+      )
 
     `;
 
 
-    document.body.appendChild(
-        siteCursor
+    requestAnimationFrame(
+      animateRing
     );
 
-
-    // CREATE GLOW
-
-    const siteGlow =
-        document
-            .createElement(
-                "div"
-            );
+  }
 
 
-    siteGlow.className =
-        "site-cursor-glow";
+  animateRing();
+
+}
 
 
-    document.body.appendChild(
-        siteGlow
-    );
+// ============================================
+// HOVER CURSOR
+// ============================================
 
+function setupMouseHover() {
 
-    // POSITION VALUES
+  document
+    .querySelectorAll(
+      "a, button, input, summary, .extension-card"
+    )
+    .forEach(
+      element => {
 
-    let mouseX =
-        window.innerWidth / 2;
-
-
-    let mouseY =
-        window.innerHeight / 2;
-
-
-    let cursorX =
-        mouseX;
-
-
-    let cursorY =
-        mouseY;
-
-
-    let glowX =
-        mouseX;
-
-
-    let glowY =
-        mouseY;
-
-
-    let lastSiteSparkle =
-        0;
-
-
-    // MOUSE MOVE
-
-    document.addEventListener(
-        "mousemove",
-        event => {
-
-            mouseX =
-                event.clientX;
-
-
-            mouseY =
-                event.clientY;
-
-
-            siteCursor
-                .classList
-                .add(
-                    "visible"
-                );
-
-
-            siteGlow
-                .classList
-                .add(
-                    "visible"
-                );
-
-
-            const now =
-                performance.now();
-
-
-            if (
-                now -
-                lastSiteSparkle >
-                32
-            ) {
-
-                createSiteSparkle(
-
-                    event.clientX,
-
-                    event.clientY
-
-                );
-
-
-                lastSiteSparkle =
-                    now;
-
-            }
-
+        if (
+          element.dataset.mouseBound
+        ) {
+          return;
         }
-    );
 
 
-    // HIDE WHEN LEAVING WINDOW
-
-    document.addEventListener(
-        "mouseleave",
-        () => {
-
-            siteCursor
-                .classList
-                .remove(
-                    "visible"
-                );
+        element.dataset.mouseBound =
+          "1";
 
 
-            siteGlow
-                .classList
-                .remove(
-                    "visible"
-                );
+        element.addEventListener(
+          "mouseenter",
+          () => {
 
-        }
-    );
+            document.body
+              .classList
+              .add(
+                "cursor-hover"
+              );
 
-
-    // CLICK EFFECT
-
-    document.addEventListener(
-        "mousedown",
-        () => {
-
-            siteCursor
-                .classList
-                .add(
-                    "clicking"
-                );
-
-        }
-    );
-
-
-    document.addEventListener(
-        "mouseup",
-        () => {
-
-            siteCursor
-                .classList
-                .remove(
-                    "clicking"
-                );
-
-        }
-    );
-
-
-    // BUTTON HOVER EFFECT
-
-    document
-        .querySelectorAll(
-            "a, button, summary, input"
-        )
-        .forEach(element => {
-
-            element.addEventListener(
-                "mouseenter",
-                () => {
-
-                    siteCursor
-                        .classList
-                        .add(
-                            "hovering"
-                        );
-
-                }
-            );
-
-
-            element.addEventListener(
-                "mouseleave",
-                () => {
-
-                    siteCursor
-                        .classList
-                        .remove(
-                            "hovering"
-                        );
-
-                }
-            );
-
-        });
-
-
-    // SMOOTH FOLLOW
-
-    function animateSiteCursor() {
-
-        cursorX +=
-
-            (
-                mouseX -
-                cursorX
-            )
-
-            * .35;
-
-
-        cursorY +=
-
-            (
-                mouseY -
-                cursorY
-            )
-
-            * .35;
-
-
-        glowX +=
-
-            (
-                mouseX -
-                glowX
-            )
-
-            * .12;
-
-
-        glowY +=
-
-            (
-                mouseY -
-                glowY
-            )
-
-            * .12;
-
-
-        siteCursor.style.transform = `
-
-            translate3d(
-
-                ${cursorX}px,
-
-                ${cursorY}px,
-
-                0
-
-            )
-
-        `;
-
-
-        siteGlow.style.transform = `
-
-            translate3d(
-
-                ${glowX}px,
-
-                ${glowY}px,
-
-                0
-
-            )
-
-        `;
-
-
-        requestAnimationFrame(
-            animateSiteCursor
+          }
         );
 
-    }
 
+        element.addEventListener(
+          "mouseleave",
+          () => {
 
-    animateSiteCursor();
+            document.body
+              .classList
+              .remove(
+                "cursor-hover"
+              );
 
-}
+          }
+        );
 
-
-// =============================================
-// WEBSITE SPARKLE TRAIL
-// =============================================
-
-function createSiteSparkle(
-    x,
-    y
-) {
-
-    const sparkle =
-        document
-            .createElement(
-                "span"
-            );
-
-
-    sparkle.className =
-        "mouse-sparkle";
-
-
-    const sparkleTypes = [
-
-        "✦",
-
-        "✧",
-
-        "•"
-
-    ];
-
-
-    sparkle.textContent =
-
-        sparkleTypes[
-
-            Math.floor(
-
-                Math.random() *
-                sparkleTypes.length
-
-            )
-
-        ];
-
-
-    const offsetX =
-
-        (
-            Math.random()
-            - .5
-        )
-
-        * 15;
-
-
-    const offsetY =
-
-        (
-            Math.random()
-            - .5
-        )
-
-        * 15;
-
-
-    sparkle.style.left =
-
-        (
-            x +
-            offsetX
-        )
-
-        + "px";
-
-
-    sparkle.style.top =
-
-        (
-            y +
-            offsetY
-        )
-
-        + "px";
-
-
-    sparkle.style.fontSize =
-
-        (
-            5 +
-            Math.random() *
-            7
-        )
-
-        + "px";
-
-
-    document.body.appendChild(
-        sparkle
-    );
-
-
-    const moveX =
-
-        (
-            Math.random()
-            - .5
-        )
-
-        * 45;
-
-
-    const moveY =
-
-        -20 -
-
-        Math.random()
-        * 35;
-
-
-    requestAnimationFrame(
-        () => {
-
-            sparkle.style.transform = `
-
-                translate(
-
-                    ${moveX}px,
-
-                    ${moveY}px
-
-                )
-
-                scale(.2)
-
-                rotate(
-                    ${
-                        Math.random()
-                        * 120
-                    }deg
-                )
-
-            `;
-
-
-            sparkle.style.opacity =
-                "0";
-
-        }
-    );
-
-
-    setTimeout(
-
-        () => {
-
-            sparkle.remove();
-
-        },
-
-        650
-
+      }
     );
 
 }
 
 
-// =============================================
+// ============================================
 // FAQ
-// =============================================
+// ============================================
 
 document
-    .querySelectorAll(
-        ".faq-list details"
-    )
-    .forEach(item => {
+  .querySelectorAll(
+    ".faq-list details"
+  )
+  .forEach(
+    item => {
 
-        item.addEventListener(
-            "toggle",
-            () => {
+      item.addEventListener(
+        "toggle",
+        () => {
 
-                if (!item.open) {
+          if (!item.open) {
+            return;
+          }
 
-                    return;
+
+          document
+            .querySelectorAll(
+              ".faq-list details"
+            )
+            .forEach(
+              other => {
+
+                if (
+                  other !== item
+                ) {
+
+                  other.open =
+                    false;
 
                 }
 
+              }
+            );
 
-                document
-                    .querySelectorAll(
-                        ".faq-list details"
-                    )
-                    .forEach(other => {
+        }
+      );
 
-                        if (
-                            other !== item
-                        ) {
+    }
+  );
 
-                            other.open =
-                                false;
 
-                        }
+// ============================================
+// INITIALIZE
+// ============================================
 
-                    });
+renderExtensions();
 
-            }
-        );
+setupReveal();
 
-    });
+setupMouseHover();
