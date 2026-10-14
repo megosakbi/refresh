@@ -1,430 +1,780 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>RbxExtensions</title>
-  <meta
-    name="description"
-    content="Upgrade your Roblox experience with clean and useful browser extensions."
-  />
+    <title>RbxExtensions</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
-  />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- Animated background -->
-  <div class="background">
+<div class="bg">
     <div class="grid"></div>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+    <div class="glow glow-three"></div>
     <div id="particles"></div>
-  </div>
+</div>
 
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <a href="#" class="logo">
-      <div class="logo-icon">R</div>
-      <span>Rbx<span class="gradient-text">Extensions</span></span>
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <a href="#home" class="logo">
+        <div class="logo-box">R</div>
+
+        <div>
+            Rbx<span>Extensions</span>
+        </div>
     </a>
 
     <div class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#extensions">Extensions</a>
-      <a href="#about">About</a>
+        <a href="#home">Home</a>
+        <a href="#extensions">Extensions</a>
+        <a href="#gallery">Screenshots</a>
+        <a href="#about">About</a>
     </div>
 
-    <a href="#extensions" class="nav-button">
-      Explore
-      <span>→</span>
+    <a href="#extensions" class="explore-btn">
+        Explore
+        <span>→</span>
     </a>
-  </nav>
+
+</nav>
 
 
-  <!-- HERO -->
-  <main>
+<!-- HERO -->
 
-    <section class="hero" id="home">
+<section class="hero" id="home">
 
-      <div class="hero-badge reveal">
-        <span class="badge-dot"></span>
+    <div class="hero-tag reveal">
+        <span></span>
         ROBLOX BROWSER EXTENSIONS
-      </div>
-
-      <h1 class="reveal">
-        Upgrade your
-        <span class="hero-gradient">Roblox</span>
-        experience.
-      </h1>
-
-      <p class="hero-description reveal">
-        Clean, powerful and easy-to-use browser extensions built to make
-        Roblox look and feel better.
-      </p>
-
-      <div class="hero-buttons reveal">
-        <a href="#extensions" class="primary-button">
-          <span class="download-icon">↓</span>
-          Browse Extensions
-        </a>
-
-        <a href="#about" class="secondary-button">
-          Learn More
-        </a>
-      </div>
-
-      <div class="hero-stats reveal">
-
-        <div class="stat">
-          <strong>100%</strong>
-          <span>Free</span>
-        </div>
-
-        <div class="stat-divider"></div>
-
-        <div class="stat">
-          <strong>Fast</strong>
-          <span>Installation</span>
-        </div>
-
-        <div class="stat-divider"></div>
-
-        <div class="stat">
-          <strong>Chrome</strong>
-          <span>Supported</span>
-        </div>
-
-      </div>
-
-      <div class="scroll-indicator">
-        <span>SCROLL</span>
-        <div class="scroll-line"></div>
-      </div>
-
-    </section>
-
-
-    <!-- EXTENSIONS -->
-    <section class="extensions-section" id="extensions">
-
-      <div class="section-header reveal">
-
-        <div class="section-label">
-          <span></span>
-          EXTENSIONS
-        </div>
-
-        <h2>Choose your upgrade.</h2>
-
-        <p>
-          Pick an extension below and completely change the way your Roblox
-          website looks and feels.
-        </p>
-
-      </div>
-
-
-      <div class="extension-grid">
-
-
-        <!-- EXTENSION 1 -->
-        <article class="extension-card reveal">
-
-          <div class="card-glow"></div>
-
-          <div class="extension-top">
-
-            <div class="extension-icon">
-              <span>R+</span>
-            </div>
-
-            <div class="extension-status">
-              <span></span>
-              AVAILABLE
-            </div>
-
-          </div>
-
-          <div class="extension-content">
-
-            <span class="extension-category">
-              CUSTOMIZATION
-            </span>
-
-            <h3>Roblox+</h3>
-
-            <p>
-              Customize Roblox with new backgrounds, cursors, visual effects
-              and a cleaner interface.
-            </p>
-
-            <div class="features">
-
-              <div>
-                <span class="check">✓</span>
-                Custom backgrounds
-              </div>
-
-              <div>
-                <span class="check">✓</span>
-                Custom cursors
-              </div>
-
-              <div>
-                <span class="check">✓</span>
-                Modern interface
-              </div>
-
-              <div>
-                <span class="check">✓</span>
-                Easy installation
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="card-footer">
-
-            <!-- CHANGE THIS LINK -->
-            <a
-              href="#"
-              class="download-button"
-              data-extension="Roblox+"
-            >
-              <span>Download Extension</span>
-              <span class="button-arrow">↓</span>
-            </a>
-
-            <span class="version">
-              v1.0
-            </span>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- EXTENSION 2 -->
-        <article class="extension-card reveal">
-
-          <div class="card-glow"></div>
-
-          <div class="extension-top">
-
-            <div class="extension-icon icon-purple">
-              <span>UI</span>
-            </div>
-
-            <div class="extension-status">
-              <span></span>
-              AVAILABLE
-            </div>
-
-          </div>
-
-          <div class="extension-content">
-
-            <span class="extension-category">
-              INTERFACE
-            </span>
-
-            <h3>Better Roblox UI</h3>
-
-            <p>
-              Give the Roblox website a completely refreshed and modern
-              interface.
-            </p>
-
-            <div class="features">
-
-              <div>
-                <span class="check">✓</span>
-                Cleaner navigation
-              </div>
-
-              <div>
-                <span class="check">✓</span>
-                Smooth animations
-              </div>
-
-              <div>
-                <span class="check">✓</span>
-                Dark interface
-              </div>
-
-              <div>
-                <span class="check">✓</span>
-                Lightweight
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="card-footer">
-
-            <!-- CHANGE THIS LINK -->
-            <a
-              href="#"
-              class="download-button"
-              data-extension="Better Roblox UI"
-            >
-              <span>Download Extension</span>
-              <span class="button-arrow">↓</span>
-            </a>
-
-            <span class="version">
-              v1.0
-            </span>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- COMING SOON CARD -->
-        <article class="extension-card coming-card reveal">
-
-          <div class="card-glow"></div>
-
-          <div class="coming-content">
-
-            <div class="coming-icon">
-              +
-            </div>
-
-            <span>MORE COMING SOON</span>
-
-            <h3>Next Extension</h3>
-
-            <p>
-              More Roblox tools and customization options are currently being
-              built.
-            </p>
-
-          </div>
-
-        </article>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ABOUT -->
-    <section class="about-section" id="about">
-
-      <div class="about-card reveal">
-
-        <div class="about-left">
-
-          <div class="section-label">
-            <span></span>
-            WHY US
-          </div>
-
-          <h2>
-            Roblox extensions
-            <span class="gradient-text">done right.</span>
-          </h2>
-
-          <p>
-            No complicated setups. Download the extension, add it to your
-            browser and start customizing Roblox.
-          </p>
-
-        </div>
-
-
-        <div class="about-grid">
-
-          <div class="about-item">
-            <div class="about-number">01</div>
-            <strong>Fast</strong>
-            <span>Lightweight extensions.</span>
-          </div>
-
-          <div class="about-item">
-            <div class="about-number">02</div>
-            <strong>Simple</strong>
-            <span>Quick installation.</span>
-          </div>
-
-          <div class="about-item">
-            <div class="about-number">03</div>
-            <strong>Modern</strong>
-            <span>Clean Roblox designs.</span>
-          </div>
-
-          <div class="about-item">
-            <div class="about-number">04</div>
-            <strong>Free</strong>
-            <span>No payment required.</span>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-
-  <!-- FOOTER -->
-  <footer>
-
-    <div class="footer-logo">
-      <div class="logo-icon small-logo">R</div>
-      RbxExtensions
     </div>
 
-    <p>
-      Not affiliated with Roblox Corporation.
+    <h1 class="reveal">
+        Upgrade your
+        <strong>Roblox</strong>
+        experience.
+    </h1>
+
+    <p class="hero-text reveal">
+        Clean, powerful and easy-to-use browser extensions built to make Roblox
+        look and feel better.
     </p>
 
-    <span>
-      © <span id="year"></span> RbxExtensions
-    </span>
+    <div class="hero-buttons reveal">
 
-  </footer>
+        <a href="#extensions" class="main-btn">
+            <span class="arrow-down">↓</span>
+            Browse Extensions
+        </a>
+
+        <a href="#gallery" class="dark-btn">
+            View Screenshots
+        </a>
+
+    </div>
+
+    <div class="stats reveal">
+
+        <div>
+            <strong>100%</strong>
+            <span>FREE</span>
+        </div>
+
+        <i></i>
+
+        <div>
+            <strong>Fast</strong>
+            <span>INSTALLATION</span>
+        </div>
+
+        <i></i>
+
+        <div>
+            <strong>Chrome</strong>
+            <span>SUPPORTED</span>
+        </div>
+
+    </div>
+
+</section>
 
 
-  <!-- CUSTOM CURSOR -->
-  <div class="cursor"></div>
-  <div class="cursor-outline"></div>
+<!-- FEATURED -->
+
+<section class="section" id="extensions">
+
+    <div class="section-heading reveal">
+
+        <div class="mini-title">
+            <span></span>
+            OUR EXTENSIONS
+        </div>
+
+        <h2>
+            Featured <span>Extensions</span>
+        </h2>
+
+        <p>
+            Give Roblox new features, custom interfaces and better controls.
+        </p>
+
+    </div>
 
 
-  <!-- DOWNLOAD TOAST -->
-  <div class="toast" id="toast">
-    <div class="toast-icon">↓</div>
+    <div class="extensions-grid">
+
+
+        <!-- CARD 1 -->
+
+        <article class="extension-card reveal">
+
+            <div class="image-wrap">
+
+                <img src="assets/extension1.png" alt="Better Roblox extension">
+
+                <div class="image-overlay"></div>
+
+                <div class="image-icon">
+                    R+
+                </div>
+
+            </div>
+
+            <div class="card-content">
+
+                <div class="top-row">
+
+                    <div>
+                        <span class="category">UI / CUSTOMIZATION</span>
+                        <h3>Better Roblox</h3>
+                    </div>
+
+                    <span class="available">
+                        <i></i>
+                        LIVE
+                    </span>
+
+                </div>
+
+                <p>
+                    Give Roblox a cleaner, modern interface with improved
+                    navigation and useful quality-of-life features.
+                </p>
+
+                <div class="tags">
+                    <span>Cleaner UI</span>
+                    <span>Customization</span>
+                    <span>Fast</span>
+                </div>
+
+                <a href="#" class="download-btn">
+
+                    <span>
+                        <b>↓</b>
+                        Download Extension
+                    </span>
+
+                    <strong>→</strong>
+
+                </a>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- CARD 2 -->
+
+        <article class="extension-card reveal">
+
+            <div class="image-wrap">
+
+                <img src="assets/extension2.png" alt="Theme customizer">
+
+                <div class="image-overlay"></div>
+
+                <div class="image-icon purple-icon">
+                    UI
+                </div>
+
+            </div>
+
+            <div class="card-content">
+
+                <div class="top-row">
+
+                    <div>
+                        <span class="category">THEMES</span>
+                        <h3>Theme Customizer</h3>
+                    </div>
+
+                    <span class="available">
+                        <i></i>
+                        LIVE
+                    </span>
+
+                </div>
+
+                <p>
+                    Change colors, backgrounds, buttons and other parts of the
+                    Roblox website directly from the extension.
+                </p>
+
+                <div class="tags">
+                    <span>Themes</span>
+                    <span>Colors</span>
+                    <span>Backgrounds</span>
+                </div>
+
+                <a href="#" class="download-btn">
+
+                    <span>
+                        <b>↓</b>
+                        Download Extension
+                    </span>
+
+                    <strong>→</strong>
+
+                </a>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- CARD 3 -->
+
+        <article class="extension-card reveal">
+
+            <div class="image-wrap">
+
+                <img src="assets/extension3.png" alt="Roblox utility extension">
+
+                <div class="image-overlay"></div>
+
+                <div class="image-icon blue-icon">
+                    +
+                </div>
+
+            </div>
+
+            <div class="card-content">
+
+                <div class="top-row">
+
+                    <div>
+                        <span class="category">UTILITY</span>
+                        <h3>Roblox Tools</h3>
+                    </div>
+
+                    <span class="available">
+                        <i></i>
+                        LIVE
+                    </span>
+
+                </div>
+
+                <p>
+                    Quick actions and useful Roblox tools packed inside one
+                    lightweight browser extension.
+                </p>
+
+                <div class="tags">
+                    <span>Tools</span>
+                    <span>Quick Actions</span>
+                    <span>Lightweight</span>
+                </div>
+
+                <a href="#" class="download-btn">
+
+                    <span>
+                        <b>↓</b>
+                        Download Extension
+                    </span>
+
+                    <strong>→</strong>
+
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- SCREENSHOTS -->
+
+<section class="section screenshots-section" id="gallery">
+
+    <div class="section-heading center reveal">
+
+        <div class="mini-title center-mini">
+            <span></span>
+            SCREENSHOTS
+            <span></span>
+        </div>
+
+        <h2>
+            See it in <span>action.</span>
+        </h2>
+
+        <p>
+            Click any image to open a larger preview.
+        </p>
+
+    </div>
+
+
+    <div class="gallery">
+
+        <div class="gallery-card gallery-large reveal" data-image="assets/screenshot1.png">
+
+            <img src="assets/screenshot1.png">
+
+            <div class="gallery-info">
+                <span>01</span>
+
+                <div>
+                    <h3>Modern Interface</h3>
+                    <p>Cleaner Roblox navigation and layout.</p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="gallery-card reveal" data-image="assets/screenshot2.png">
+
+            <img src="assets/screenshot2.png">
+
+            <div class="gallery-info">
+
+                <span>02</span>
+
+                <div>
+                    <h3>Custom Themes</h3>
+                    <p>Change how your Roblox website looks.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="gallery-card reveal" data-image="assets/screenshot3.png">
+
+            <img src="assets/screenshot3.png">
+
+            <div class="gallery-info">
+
+                <span>03</span>
+
+                <div>
+                    <h3>Extension Controls</h3>
+                    <p>Everything controlled from one panel.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="section" id="about">
+
+    <div class="section-heading reveal">
+
+        <div class="mini-title">
+            <span></span>
+            WHY RBXEXTENSIONS
+        </div>
+
+        <h2>
+            Built to be <span>better.</span>
+        </h2>
+
+    </div>
+
+
+    <div class="features-grid">
+
+        <div class="feature-card reveal">
+
+            <div class="feature-icon">
+                ⚡
+            </div>
+
+            <h3>Fast & Lightweight</h3>
+
+            <p>
+                Built to run smoothly without slowing down your browser.
+            </p>
+
+            <span class="feature-number">
+                01
+            </span>
+
+        </div>
+
+
+        <div class="feature-card reveal">
+
+            <div class="feature-icon">
+                ◈
+            </div>
+
+            <h3>Easy Installation</h3>
+
+            <p>
+                Download the extension and add it to Chrome in minutes.
+            </p>
+
+            <span class="feature-number">
+                02
+            </span>
+
+        </div>
+
+
+        <div class="feature-card reveal">
+
+            <div class="feature-icon">
+                ✦
+            </div>
+
+            <h3>Modern Design</h3>
+
+            <p>
+                Custom interfaces built to look clean and feel responsive.
+            </p>
+
+            <span class="feature-number">
+                03
+            </span>
+
+        </div>
+
+
+        <div class="feature-card reveal">
+
+            <div class="feature-icon">
+                ↻
+            </div>
+
+            <h3>Regular Updates</h3>
+
+            <p>
+                Extensions can continuously receive new features and fixes.
+            </p>
+
+            <span class="feature-number">
+                04
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- BIG STATS -->
+
+<section class="stats-section">
+
+    <div class="big-stat reveal">
+        <strong>100%</strong>
+        <span>FREE</span>
+    </div>
+
+    <div class="big-stat reveal">
+        <strong>3+</strong>
+        <span>EXTENSIONS</span>
+    </div>
+
+    <div class="big-stat reveal">
+        <strong>1</strong>
+        <span>CLICK INSTALL</span>
+    </div>
+
+    <div class="big-stat reveal">
+        <strong>24/7</strong>
+        <span>AVAILABLE</span>
+    </div>
+
+</section>
+
+
+<!-- HOW TO INSTALL -->
+
+<section class="section">
+
+    <div class="install-box reveal">
+
+        <div class="install-left">
+
+            <div class="mini-title">
+                <span></span>
+                INSTALLATION
+            </div>
+
+            <h2>
+                Install in
+                <span>seconds.</span>
+            </h2>
+
+            <p>
+                No complicated setup. Download the ZIP, open Chrome Extensions
+                and load the extension.
+            </p>
+
+        </div>
+
+
+        <div class="install-steps">
+
+            <div class="install-step">
+                <strong>01</strong>
+
+                <div>
+                    <h3>Download</h3>
+                    <p>Download the extension ZIP file.</p>
+                </div>
+            </div>
+
+
+            <div class="install-step">
+                <strong>02</strong>
+
+                <div>
+                    <h3>Extract</h3>
+                    <p>Extract the downloaded folder.</p>
+                </div>
+            </div>
+
+
+            <div class="install-step">
+                <strong>03</strong>
+
+                <div>
+                    <h3>Open Extensions</h3>
+                    <p>Go to chrome://extensions.</p>
+                </div>
+            </div>
+
+
+            <div class="install-step">
+                <strong>04</strong>
+
+                <div>
+                    <h3>Load Unpacked</h3>
+                    <p>Select the extracted extension folder.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section class="section faq-section">
+
+    <div class="faq-title reveal">
+
+        <div class="mini-title">
+            <span></span>
+            FAQ
+        </div>
+
+        <h2>
+            Frequently asked
+            <span>questions.</span>
+        </h2>
+
+    </div>
+
+
+    <div class="faq-list">
+
+        <div class="faq-item reveal">
+
+            <button>
+                Are the extensions free?
+                <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    Yes. Extensions listed on the website can be provided for free
+                    unless stated otherwise.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="faq-item reveal">
+
+            <button>
+                Which browsers are supported?
+                <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    The extensions are primarily designed for Chromium-based browsers
+                    such as Google Chrome and Microsoft Edge.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="faq-item reveal">
+
+            <button>
+                How do I install an extension?
+                <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    Download it, extract the folder, open your browser's extensions
+                    page, enable Developer Mode and select Load Unpacked.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="faq-item reveal">
+
+            <button>
+                Will more extensions be added?
+                <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    Yes. You can add new extension cards whenever you release new
+                    projects.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="final-cta reveal">
+
+    <div class="cta-glow"></div>
 
     <div>
-      <strong>Starting download</strong>
-      <span id="toast-text">Extension</span>
+
+        <span class="cta-small">
+            GET STARTED
+        </span>
+
+        <h2>
+            Ready to upgrade your
+            <span>Roblox?</span>
+        </h2>
+
+        <p>
+            Browse the extensions and choose what you want to add.
+        </p>
+
     </div>
-  </div>
+
+    <a href="#extensions" class="cta-button">
+        Browse Extensions
+        <span>→</span>
+    </a>
+
+</section>
 
 
-  <script src="script.js"></script>
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-left">
+
+        <div class="logo">
+            <div class="logo-box footer-logo-box">R</div>
+
+            <div>
+                Rbx<span>Extensions</span>
+            </div>
+        </div>
+
+        <p>
+            Better tools. Better Roblox.
+        </p>
+
+    </div>
+
+
+    <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#extensions">Extensions</a>
+        <a href="#gallery">Screenshots</a>
+        <a href="#about">About</a>
+    </div>
+
+
+    <div class="copyright">
+        © <span id="year"></span> RbxExtensions
+    </div>
+
+</footer>
+
+
+<!-- IMAGE LIGHTBOX -->
+
+<div class="lightbox" id="lightbox">
+
+    <button id="closeLightbox">
+        ×
+    </button>
+
+    <img id="lightboxImage">
+
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>
