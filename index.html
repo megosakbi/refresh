@@ -1,1283 +1,1050 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050812" />
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <title>VOIDLABS — Roblox Browser Tools</title>
 
-    <meta
-        name="theme-color"
-        content="#090709"
-    >
+  <meta
+    name="description"
+    content="Premium Roblox browser extensions, UI tools and customization."
+  />
 
-    <title>RBXCursor — Customize Roblox</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <meta
-        name="description"
-        content="Customize Roblox with custom cursors, cursor effects, sparkles and backgrounds."
-    >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-    >
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-    <div class="noise"></div>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
 
-    <div class="pink-glow glow1"></div>
-    <div class="pink-glow glow2"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
 
 
-    <!-- =========================
-         NAVBAR
-    ========================== -->
+  <!-- NAVBAR -->
 
-    <header class="nav-shell">
+  <header class="nav-wrap">
 
-        <nav class="nav">
+    <nav class="nav glass">
 
-            <a
-                class="brand"
-                href="#top"
-            >
+      <a href="#top" class="brand">
 
-                <div class="logo">
-                    ♡
-                </div>
+        <span class="brand-logo">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"></path>
+            <path d="m8 9 4 6 4-6"></path>
+          </svg>
+        </span>
 
-                <div class="brand-name">
-                    RBX<span>Cursor</span>
-                </div>
+        <span class="brand-name">
+          VOID<span>LABS</span>
+        </span>
 
-            </a>
+      </a>
 
 
-            <div class="links">
+      <div class="nav-links">
 
-                <a href="#features">
-                    Features
-                </a>
-
-                <a href="#library">
-                    Library
-                </a>
-
-                <a href="#backgrounds">
-                    Backgrounds
-                </a>
-
-                <a href="#install">
-                    Install
-                </a>
-
-                <a href="#faq">
-                    FAQ
-                </a>
-
-            </div>
-
-
-            <a
-                class="top-download download-link"
-                href="https://drive.google.com/uc?export=download&id=1mFxUiK-3GEVEMDM9SjTwb7LInM49k5KI"
-            >
-                ↓ Download
-            </a>
-
-        </nav>
-
-    </header>
-
-
-    <main id="top">
-
-
-        <!-- =========================
-             HERO
-        ========================== -->
-
-        <section class="hero">
-
-            <div class="hero-left">
-
-                <div class="badge">
-
-                    <i></i>
-
-                    ROBLOX, BUT CUSTOMIZED
-
-                </div>
-
-
-                <h1>
-
-                    swap the dot.<br>
-
-                    <span>
-                        pick something cute.
-                    </span>
-
-                </h1>
-
-
-                <p class="description">
-
-                    Custom cursors, glow effects, sparkle trails
-                    and full Roblox backgrounds — all inside one
-                    clean extension.
-
-                </p>
-
-
-                <div class="hero-buttons">
-
-                    <a
-                        class="main-button download-link"
-                        href="https://drive.google.com/uc?export=download&id=1mFxUiK-3GEVEMDM9SjTwb7LInM49k5KI"
-                    >
-
-                        <div class="button-icon">
-                            ↓
-                        </div>
-
-
-                        <div>
-
-                            <strong>
-                                Download extension
-                            </strong>
-
-                            <small>
-                                Chrome / Edge ZIP
-                            </small>
-
-                        </div>
-
-                    </a>
-
-
-                    <a
-                        class="secondary-button"
-                        href="#library"
-                    >
-
-                        <div class="button-icon dark">
-                            ✦
-                        </div>
-
-
-                        <div>
-
-                            <strong>
-                                Preset library
-                            </strong>
-
-                            <small>
-                                Built-in looks
-                            </small>
-
-                        </div>
-
-                    </a>
-
-                </div>
-
-
-                <div class="hero-small">
-
-                    <div class="small-icons">
-
-                        <span>✦</span>
-                        <span>♡</span>
-                        <span>★</span>
-
-                    </div>
-
-
-                    <div>
-
-                        <strong>
-                            No account needed
-                        </strong>
-
-                        <p>
-                            Install it, open Roblox and customize.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================
-                 EXTENSION PREVIEW
-            ========================== -->
-
-            <div class="hero-right">
-
-                <div class="floating-dot dot1"></div>
-                <div class="floating-dot dot2"></div>
-                <div class="floating-dot dot3"></div>
-
-
-                <div class="extension">
-
-                    <div class="extension-header">
-
-                        <span>
-                            live preview
-                        </span>
-
-
-                        <span class="live">
-
-                            <i></i>
-
-                            ON
-
-                        </span>
-
-                    </div>
-
-
-                    <div
-                        class="preview"
-                        id="preview"
-                    >
-
-                        <div class="preview-grid"></div>
-
-                        <div
-                            class="cursor-glow"
-                            id="cursorGlow"
-                        ></div>
-
-
-                        <div
-                            class="cursor"
-                            id="cursor"
-                        >
-
-                            <div class="paw">
-
-                                <i class="toe toe1"></i>
-
-                                <i class="toe toe2"></i>
-
-                                <i class="toe toe3"></i>
-
-                                <i class="toe toe4"></i>
-
-                                <i class="pad"></i>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="selected">
-
-                            <small>
-                                selected
-                            </small>
-
-                            <strong id="selectedName">
-                                soft paw
-                            </strong>
-
-                        </div>
-
-
-                        <div class="glow-text">
-
-                            <small>
-                                glow
-                            </small>
-
-                            <strong id="glowText">
-                                86%
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- PRESETS -->
-
-                    <div class="presets">
-
-                        <button
-                            class="preset active"
-                            data-cursor="paw"
-                            data-name="soft paw"
-                        >
-
-                            <span>🐾</span>
-
-                            <small>
-                                paw
-                            </small>
-
-                        </button>
-
-
-                        <button
-                            class="preset"
-                            data-cursor="heart"
-                            data-name="heart lock"
-                        >
-
-                            <span>♡</span>
-
-                            <small>
-                                heart
-                            </small>
-
-                        </button>
-
-
-                        <button
-                            class="preset"
-                            data-cursor="star"
-                            data-name="night star"
-                        >
-
-                            <span>✦</span>
-
-                            <small>
-                                star
-                            </small>
-
-                        </button>
-
-
-                        <button
-                            class="preset"
-                            data-cursor="moon"
-                            data-name="dark moon"
-                        >
-
-                            <span>☾</span>
-
-                            <small>
-                                moon
-                            </small>
-
-                        </button>
-
-
-                        <button
-                            class="preset"
-                            data-cursor="arrow"
-                            data-name="pink arrow"
-                        >
-
-                            <span>➤</span>
-
-                            <small>
-                                arrow
-                            </small>
-
-                        </button>
-
-                    </div>
-
-
-                    <!-- CONTROLS -->
-
-                    <div class="controls">
-
-                        <label>
-
-                            SIZE
-
-                            <input
-                                id="size"
-                                type="range"
-                                min="50"
-                                max="140"
-                                value="90"
-                            >
-
-                        </label>
-
-
-                        <label>
-
-                            GLOW
-
-                            <input
-                                id="glow"
-                                type="range"
-                                min="0"
-                                max="100"
-                                value="86"
-                            >
-
-                        </label>
-
-
-                        <label>
-
-                            OPACITY
-
-                            <input
-                                id="opacity"
-                                type="range"
-                                min="30"
-                                max="100"
-                                value="100"
-                            >
-
-                        </label>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             TICKER
-        ========================== -->
-
-        <section class="ticker">
-
-            <div class="ticker-inner">
-
-                <span>CUSTOM CURSORS</span>
-                <b>✦</b>
-
-                <span>DARK ANIME</span>
-                <b>✦</b>
-
-                <span>SPARKLE TRAILS</span>
-                <b>✦</b>
-
-                <span>CUSTOM PNG</span>
-                <b>✦</b>
-
-                <span>FULL BACKGROUNDS</span>
-                <b>✦</b>
-
-                <span>CUSTOM CURSORS</span>
-                <b>✦</b>
-
-                <span>DARK ANIME</span>
-                <b>✦</b>
-
-                <span>SPARKLE TRAILS</span>
-                <b>✦</b>
-
-                <span>CUSTOM PNG</span>
-                <b>✦</b>
-
-                <span>FULL BACKGROUNDS</span>
-                <b>✦</b>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             FEATURES
-        ========================== -->
-
-        <section
-            id="features"
-            class="section"
-        >
-
-            <div class="section-title">
-
-                <small>
-                    FEATURES
-                </small>
-
-
-                <h2>
-
-                    Small extension.<br>
-
-                    <span>
-                        Big visual upgrade.
-                    </span>
-
-                </h2>
-
-
-                <p>
-
-                    Everything you need to give Roblox a completely
-                    different look without making the website annoying
-                    to use.
-
-                </p>
-
-            </div>
-
-
-            <div class="feature-grid">
-
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        ✦
-                    </div>
-
-
-                    <h3>
-                        Cursor effects
-                    </h3>
-
-
-                    <p>
-
-                        Change size, opacity and glow, then enable
-                        a smooth sparkle trail behind your cursor.
-
-                    </p>
-
-
-                    <div class="feature-demo cursor-demo">
-
-                        <i></i>
-                        <i></i>
-                        <i></i>
-
-                        <span>
-                            ♡
-                        </span>
-
-                    </div>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        ▧
-                    </div>
-
-
-                    <h3>
-                        Full backgrounds
-                    </h3>
-
-
-                    <p>
-
-                        Wallpapers cover the Roblox website while
-                        navigation, game cards and buttons remain usable.
-
-                    </p>
-
-
-                    <div class="feature-demo background-demo">
-
-                        <div class="fake-sidebar"></div>
-
-                        <div class="anime-shape"></div>
-
-                    </div>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        ↑
-                    </div>
-
-
-                    <h3>
-                        Upload your own
-                    </h3>
-
-
-                    <p>
-
-                        Use your own transparent PNG cursor or wallpaper
-                        whenever you want.
-
-                    </p>
-
-
-                    <div class="feature-demo upload-demo">
-
-                        <div>
-                            ↑
-                        </div>
-
-                        <span>
-                            DROP IMAGE
-                        </span>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             CURSOR LIBRARY
-        ========================== -->
-
-        <section
-            id="library"
-            class="section"
-        >
-
-            <div class="split-title">
-
-                <div>
-
-                    <small>
-                        CURSOR LIBRARY
-                    </small>
-
-
-                    <h2>
-
-                        Pick a vibe.<br>
-
-                        <span>
-                            Switch instantly.
-                        </span>
-
-                    </h2>
-
-                </div>
-
-
-                <p>
-
-                    Cute, dark and clean cursor presets.
-                    Choose a style and make Roblox feel completely
-                    different.
-
-                </p>
-
-            </div>
-
-
-            <div class="cursor-library">
-
-
-                <div class="cursor-card">
-
-                    <div class="cursor-picture">
-                        🐾
-                    </div>
-
-                    <strong>
-                        Soft Paw
-                    </strong>
-
-                    <small>
-                        Kawaii
-                    </small>
-
-                </div>
-
-
-                <div class="cursor-card">
-
-                    <div class="cursor-picture">
-                        ♡
-                    </div>
-
-                    <strong>
-                        Heart Lock
-                    </strong>
-
-                    <small>
-                        Pink glow
-                    </small>
-
-                </div>
-
-
-                <div class="cursor-card">
-
-                    <div class="cursor-picture">
-                        ✦
-                    </div>
-
-                    <strong>
-                        Night Star
-                    </strong>
-
-                    <small>
-                        Dark
-                    </small>
-
-                </div>
-
-
-                <div class="cursor-card">
-
-                    <div class="cursor-picture">
-                        ☾
-                    </div>
-
-                    <strong>
-                        Dark Moon
-                    </strong>
-
-                    <small>
-                        Anime
-                    </small>
-
-                </div>
-
-
-                <div class="cursor-card">
-
-                    <div class="cursor-picture">
-                        ➤
-                    </div>
-
-                    <strong>
-                        Pink Arrow
-                    </strong>
-
-                    <small>
-                        Clean
-                    </small>
-
-                </div>
-
-
-                <div class="cursor-card">
-
-                    <div class="cursor-picture">
-                        ♢
-                    </div>
-
-                    <strong>
-                        Crystal
-                    </strong>
-
-                    <small>
-                        Glow
-                    </small>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             BACKGROUNDS
-        ========================== -->
-
-        <section
-            id="backgrounds"
-            class="section"
-        >
-
-            <div class="split-title">
-
-                <div>
-
-                    <small>
-                        BACKGROUNDS
-                    </small>
-
-
-                    <h2>
-
-                        Dark, clean,<br>
-
-                        <span>
-                            not boring.
-                        </span>
-
-                    </h2>
-
-                </div>
-
-
-                <p>
-
-                    Full-page wallpapers designed to work behind
-                    Roblox instead of only changing one small section
-                    of the page.
-
-                </p>
-
-            </div>
-
-
-            <div class="background-grid">
-
-
-                <div class="wallpaper bg1">
-
-                    <div>
-
-                        <span>
-                            01
-                        </span>
-
-                        <strong>
-                            Midnight Ink
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="wallpaper bg2">
-
-                    <div>
-
-                        <span>
-                            02
-                        </span>
-
-                        <strong>
-                            Pink Void
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="wallpaper bg3">
-
-                    <div>
-
-                        <span>
-                            03
-                        </span>
-
-                        <strong>
-                            Mono Bloom
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="wallpaper bg4">
-
-                    <div>
-
-                        <span>
-                            04
-                        </span>
-
-                        <strong>
-                            Black Rose
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             INSTALL
-        ========================== -->
-
-        <section
-            id="install"
-            class="section"
-        >
-
-            <div class="install-box">
-
-                <div class="install-left">
-
-                    <small>
-                        INSTALL
-                    </small>
-
-
-                    <h2>
-
-                        Up and running<br>
-
-                        <span>
-                            in a minute.
-                        </span>
-
-                    </h2>
-
-
-                    <p>
-
-                        Download the ZIP, extract it and load the
-                        extension into Chrome or Edge.
-
-                    </p>
-
-
-                    <a
-                        class="main-button download-link"
-                        href="https://drive.google.com/uc?export=download&id=1mFxUiK-3GEVEMDM9SjTwb7LInM49k5KI"
-                    >
-
-                        <div class="button-icon">
-                            ↓
-                        </div>
-
-
-                        <div>
-
-                            <strong>
-                                Download extension
-                            </strong>
-
-                            <small>
-                                Latest ZIP
-                            </small>
-
-                        </div>
-
-                    </a>
-
-                </div>
-
-
-                <div class="steps">
-
-
-                    <div class="step">
-
-                        <span>
-                            01
-                        </span>
-
-
-                        <div>
-
-                            <strong>
-                                Download & extract
-                            </strong>
-
-                            <p>
-                                Download RBXCursor and extract the ZIP.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="step">
-
-                        <span>
-                            02
-                        </span>
-
-
-                        <div>
-
-                            <strong>
-                                Developer mode
-                            </strong>
-
-                            <p>
-                                Open your browser extensions page and enable Developer mode.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="step">
-
-                        <span>
-                            03
-                        </span>
-
-
-                        <div>
-
-                            <strong>
-                                Load unpacked
-                            </strong>
-
-                            <p>
-                                Select the extracted RBXCursor folder.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="step">
-
-                        <span>
-                            04
-                        </span>
-
-
-                        <div>
-
-                            <strong>
-                                Refresh Roblox
-                            </strong>
-
-                            <p>
-                                Open Roblox and start customizing.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             FAQ
-        ========================== -->
-
-        <section
-            id="faq"
-            class="section faq-section"
-        >
-
-            <div class="section-title">
-
-                <small>
-                    FAQ
-                </small>
-
-
-                <h2>
-                    Quick answers.
-                </h2>
-
-            </div>
-
-
-            <div class="faq-list">
-
-
-                <details>
-
-                    <summary>
-
-                        Does it work on Chrome and Edge?
-
-                        <span>
-                            +
-                        </span>
-
-                    </summary>
-
-
-                    <p>
-
-                        Yes. The unpacked extension can be installed
-                        in Chromium-based browsers such as Chrome
-                        and Microsoft Edge.
-
-                    </p>
-
-                </details>
-
-
-                <details>
-
-                    <summary>
-
-                        Can I upload my own cursor?
-
-                        <span>
-                            +
-                        </span>
-
-                    </summary>
-
-
-                    <p>
-
-                        Yes. RBXCursor can support your own transparent
-                        PNG cursors alongside the built-in presets.
-
-                    </p>
-
-                </details>
-
-
-                <details>
-
-                    <summary>
-
-                        Can I use my own wallpaper?
-
-                        <span>
-                            +
-                        </span>
-
-                    </summary>
-
-
-                    <p>
-
-                        Yes. You can use custom backgrounds in addition
-                        to the built-in background library.
-
-                    </p>
-
-                </details>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             FINAL DOWNLOAD
-        ========================== -->
-
-        <section
-            id="download"
-            class="download-section"
-        >
-
-            <div class="download-glow"></div>
-
-
-            <small>
-                READY?
-            </small>
-
-
-            <h2>
-
-                Make Roblox<br>
-
-                <span>
-                    look like yours.
-                </span>
-
-            </h2>
-
-
-            <p>
-
-                Download RBXCursor and start customizing.
-
-            </p>
-
-
-            <a
-                href="https://drive.google.com/uc?export=download&id=1mFxUiK-3GEVEMDM9SjTwb7LInM49k5KI"
-                id="downloadButton"
-                class="final-download"
-            >
-
-                ↓ Download RBXCursor
-
-            </a>
-
-
-            <small class="download-note">
-                Chrome / Edge
-            </small>
-
-        </section>
-
-
-    </main>
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer>
-
-        <a
-            class="brand"
-            href="#top"
-        >
-
-            <div class="logo">
-                ♡
-            </div>
-
-
-            <div class="brand-name">
-                RBX<span>Cursor</span>
-            </div>
-
+        <a href="#extensions">
+          Extensions
         </a>
 
+        <a href="#features">
+          Features
+        </a>
 
-        <div class="footer-right">
+        <a href="#install">
+          Install
+        </a>
 
-            <strong>
-                Credits To Mego Tools CEO
-            </strong>
+        <a href="#faq">
+          FAQ
+        </a>
 
-            <span>
-                © 2026 RBXCursor. All rights reserved.
-            </span>
+      </div>
+
+
+      <a
+        href="#extensions"
+        class="nav-button"
+      >
+
+        Browse tools
+
+        <span>
+          ↘
+        </span>
+
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <main id="top">
+
+
+    <!-- HERO -->
+
+    <section class="hero section">
+
+      <div class="hero-left reveal">
+
+        <div class="badge">
+
+          <i></i>
+
+          BROWSER TOOLS FOR ROBLOX
 
         </div>
 
-    </footer>
+
+        <h1>
+
+          upgrade your
+          <br>
+
+          <span>
+            roblox setup.
+          </span>
+
+        </h1>
 
 
-    <script src="script.js"></script>
+        <p class="hero-desc">
+
+          A collection of browser extensions for customization,
+          cleaner UI, profile tools and visual upgrades.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+          <a
+            href="#extensions"
+            class="main-btn"
+          >
+
+            <span class="btn-icon">
+
+              <svg viewBox="0 0 24 24">
+
+                <path d="M12 3v12"></path>
+
+                <path d="m8 11 4 4 4-4"></path>
+
+                <path d="M5 20h14"></path>
+
+              </svg>
+
+            </span>
+
+
+            <span>
+
+              <strong>
+                Browse extensions
+              </strong>
+
+              <small>
+                Explore all tools
+              </small>
+
+            </span>
+
+          </a>
+
+
+          <a
+            href="#install"
+            class="second-btn"
+          >
+
+            <span class="btn-icon second">
+
+              <svg viewBox="0 0 24 24">
+
+                <rect
+                  x="4"
+                  y="4"
+                  width="16"
+                  height="16"
+                  rx="4"
+                ></rect>
+
+                <path d="M9 12h6"></path>
+
+                <path d="M12 9v6"></path>
+
+              </svg>
+
+            </span>
+
+
+            <span>
+
+              <strong>
+                Install guide
+              </strong>
+
+              <small>
+                Chrome / Edge
+              </small>
+
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <div class="stats">
+
+          <div>
+
+            <strong>
+              04
+            </strong>
+
+            <span>
+              extensions
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              FAST
+            </strong>
+
+            <span>
+              install
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              ∞
+            </strong>
+
+            <span>
+              customization
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- AVATAR PREVIEW -->
+
+      <div class="hero-right reveal">
+
+        <div
+          class="avatar-panel glass"
+          id="avatarPanel"
+        >
+
+          <div class="avatar-header">
+
+            <span>
+              avatar preview
+            </span>
+
+
+            <span class="online">
+
+              <i></i>
+
+              LIVE
+
+            </span>
+
+          </div>
+
+
+          <div class="avatar-area">
+
+            <div class="scan"></div>
+
+            <div class="avatar-glow"></div>
+
+            <div class="orbit orbit1"></div>
+            <div class="orbit orbit2"></div>
+
+
+            <!-- CHANGE THIS IMAGE TO YOUR ROBLOX AVATAR -->
+
+            <img
+              id="heroAvatar"
+              class="hero-avatar"
+              src="https://www.roblox.com/avatar-thumbnail/image?userId=1&width=420&height=420&format=png"
+              alt="Roblox Avatar"
+            >
+
+
+            <div class="floating-card float1">
+
+              <span>
+                ✦
+              </span>
+
+              <div>
+
+                <strong>
+                  Cursor FX
+                </strong>
+
+                <small>
+                  Glow + trails
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <div class="floating-card float2">
+
+              <span>
+                ◫
+              </span>
+
+              <div>
+
+                <strong>
+                  Themes
+                </strong>
+
+                <small>
+                  Full UI skins
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <div class="floating-card float3">
+
+              <span>
+                ⌁
+              </span>
+
+              <div>
+
+                <strong>
+                  Profile Tools
+                </strong>
+
+                <small>
+                  Better layouts
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <div class="customized">
+
+              <i></i>
+
+              CUSTOMIZED
+
+            </div>
+
+          </div>
+
+
+          <div class="avatar-footer">
+
+            <div>
+
+              <small>
+                STATUS
+              </small>
+
+              <strong>
+                Systems online
+              </strong>
+
+            </div>
+
+
+            <div class="bars">
+
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+              <i></i>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="floating-symbol symbol1">
+          ✦
+        </div>
+
+        <div class="floating-symbol symbol2">
+          ◆
+        </div>
+
+        <div class="floating-symbol symbol3">
+          ⌘
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MOVING BAR -->
+
+    <section class="ticker">
+
+      <div class="ticker-inner">
+
+        <span>CURSOR FX</span>
+        <b>◆</b>
+
+        <span>THEMES</span>
+        <b>◆</b>
+
+        <span>PROFILE TOOLS</span>
+        <b>◆</b>
+
+        <span>UI MODS</span>
+        <b>◆</b>
+
+        <span>BROWSER TOOLS</span>
+        <b>◆</b>
+
+        <span>CURSOR FX</span>
+        <b>◆</b>
+
+        <span>THEMES</span>
+        <b>◆</b>
+
+        <span>PROFILE TOOLS</span>
+        <b>◆</b>
+
+        <span>UI MODS</span>
+        <b>◆</b>
+
+        <span>BROWSER TOOLS</span>
+        <b>◆</b>
+
+      </div>
+
+    </section>
+
+
+    <!-- EXTENSIONS -->
+
+    <section
+      id="extensions"
+      class="extensions-section section"
+    >
+
+      <div class="section-header reveal">
+
+        <div>
+
+          <small>
+            EXTENSION HUB
+          </small>
+
+          <h2>
+
+            pick your
+
+            <span>
+              upgrade.
+            </span>
+
+          </h2>
+
+        </div>
+
+
+        <p>
+
+          Different tools, same clean style.
+          Search the collection or filter by category.
+
+        </p>
+
+      </div>
+
+
+      <div class="controls reveal">
+
+        <div class="filters">
+
+          <button
+            class="filter active"
+            data-filter="all"
+          >
+            All
+          </button>
+
+
+          <button
+            class="filter"
+            data-filter="customization"
+          >
+            Customization
+          </button>
+
+
+          <button
+            class="filter"
+            data-filter="ui"
+          >
+            UI
+          </button>
+
+
+          <button
+            class="filter"
+            data-filter="profile"
+          >
+            Profile
+          </button>
+
+        </div>
+
+
+        <label class="search">
+
+          <svg viewBox="0 0 24 24">
+
+            <circle
+              cx="11"
+              cy="11"
+              r="7"
+            ></circle>
+
+            <path d="m20 20-3.5-3.5"></path>
+
+          </svg>
+
+
+          <input
+            id="extensionSearch"
+            type="text"
+            placeholder="Search extensions..."
+          >
+
+        </label>
+
+      </div>
+
+
+      <div
+        class="extension-grid"
+        id="extensionGrid"
+      ></div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section
+      id="features"
+      class="features section"
+    >
+
+      <div class="section-header reveal">
+
+        <div>
+
+          <small>
+            FEATURES
+          </small>
+
+          <h2>
+
+            built to feel
+
+            <span>
+              premium.
+            </span>
+
+          </h2>
+
+        </div>
+
+
+        <p>
+
+          Smooth animations, easy downloads
+          and a layout made for multiple extensions.
+
+        </p>
+
+      </div>
+
+
+      <div class="feature-grid">
+
+
+        <article class="feature reveal">
+
+          <div class="feature-number">
+            01
+          </div>
+
+
+          <div class="feature-icon">
+
+            <svg viewBox="0 0 24 24">
+
+              <path d="M4 12h16"></path>
+
+              <path d="M12 4v16"></path>
+
+            </svg>
+
+          </div>
+
+
+          <h3>
+            Easy to expand
+          </h3>
+
+
+          <p>
+
+            Add another extension by adding one
+            item to the JavaScript tools list.
+
+          </p>
+
+        </article>
+
+
+        <article class="feature reveal">
+
+          <div class="feature-number">
+            02
+          </div>
+
+
+          <div class="feature-icon">
+
+            <svg viewBox="0 0 24 24">
+
+              <path d="M5 17 17 5"></path>
+
+              <path d="M9 5h8v8"></path>
+
+            </svg>
+
+          </div>
+
+
+          <h3>
+            Direct download
+          </h3>
+
+
+          <p>
+
+            Connect each card to your ZIP file
+            or direct download URL.
+
+          </p>
+
+        </article>
+
+
+        <article class="feature reveal">
+
+          <div class="feature-number">
+            03
+          </div>
+
+
+          <div class="feature-icon">
+
+            <svg viewBox="0 0 24 24">
+
+              <path d="M3 12s3-6 9-6 9 6 9 6-3 6-9 6-9-6-9-6Z"></path>
+
+              <circle
+                cx="12"
+                cy="12"
+                r="2.5"
+              ></circle>
+
+            </svg>
+
+          </div>
+
+
+          <h3>
+            Animated UI
+          </h3>
+
+
+          <p>
+
+            Parallax, animated cards, scroll reveals,
+            glowing effects and smooth interactions.
+
+          </p>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- INSTALL -->
+
+    <section
+      id="install"
+      class="install section"
+    >
+
+      <div class="install-box glass reveal">
+
+        <div>
+
+          <small class="section-small">
+            INSTALL
+          </small>
+
+
+          <h2>
+
+            three steps.
+
+            <span>
+              done.
+            </span>
+
+          </h2>
+
+
+          <p>
+
+            Download the extension ZIP,
+            extract it and load it into Chrome or Edge.
+
+          </p>
+
+        </div>
+
+
+        <div class="steps">
+
+
+          <article>
+
+            <span>
+              01
+            </span>
+
+            <div>
+
+              <strong>
+                Download
+              </strong>
+
+              <p>
+                Pick the extension you want.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <article>
+
+            <span>
+              02
+            </span>
+
+            <div>
+
+              <strong>
+                Extract ZIP
+              </strong>
+
+              <p>
+                Extract it somewhere on your PC.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <article>
+
+            <span>
+              03
+            </span>
+
+            <div>
+
+              <strong>
+                Load unpacked
+              </strong>
+
+              <p>
+                Enable Developer Mode and select the extracted folder.
+              </p>
+
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FAQ -->
+
+    <section
+      id="faq"
+      class="faq section"
+    >
+
+      <div class="section-header reveal">
+
+        <div>
+
+          <small>
+            FAQ
+          </small>
+
+          <h2>
+
+            quick
+
+            <span>
+              answers.
+            </span>
+
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="faq-list reveal">
+
+
+        <details>
+
+          <summary>
+
+            Does it work on Chrome and Edge?
+
+            <span>
+              +
+            </span>
+
+          </summary>
+
+          <p>
+
+            Yes. These are designed for Chromium browsers.
+
+          </p>
+
+        </details>
+
+
+        <details>
+
+          <summary>
+
+            How do I add another extension?
+
+            <span>
+              +
+            </span>
+
+          </summary>
+
+          <p>
+
+            Open script.js and add another object
+            inside the EXTENSIONS array.
+
+          </p>
+
+        </details>
+
+
+        <details>
+
+          <summary>
+
+            How do I change the Roblox avatar?
+
+            <span>
+              +
+            </span>
+
+          </summary>
+
+          <p>
+
+            Replace the image URL in the heroAvatar
+            image inside index.html.
+
+          </p>
+
+        </details>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- FINAL CTA -->
+
+    <section class="final section reveal">
+
+      <div class="final-box">
+
+        <div class="final-glow"></div>
+
+
+        <small>
+          TOOL COLLECTION
+        </small>
+
+
+        <h2>
+
+          choose a tool.
+
+          <span>
+            change the vibe.
+          </span>
+
+        </h2>
+
+
+        <a
+          href="#extensions"
+          class="main-btn final-button"
+        >
+
+          <span class="btn-icon">
+            ↘
+          </span>
+
+          <span>
+
+            <strong>
+              View extensions
+            </strong>
+
+            <small>
+              Browse all tools
+            </small>
+
+          </span>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <footer class="footer section">
+
+    <a href="#top" class="brand">
+
+      <span class="brand-logo">
+
+        <svg viewBox="0 0 24 24">
+
+          <path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"></path>
+
+          <path d="m8 9 4 6 4-6"></path>
+
+        </svg>
+
+      </span>
+
+
+      <span class="brand-name">
+
+        VOID<span>LABS</span>
+
+      </span>
+
+    </a>
+
+
+    <p>
+      Browser extension hub.
+    </p>
+
+  </footer>
+
+
+  <div
+    class="mouse-dot"
+    id="mouseDot"
+  ></div>
+
+  <div
+    class="mouse-ring"
+    id="mouseRing"
+  ></div>
+
+
+  <script src="script.js"></script>
 
 </body>
 </html>
