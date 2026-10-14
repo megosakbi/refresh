@@ -1,397 +1,420 @@
-/* ---------------------------------
-   CURRENT YEAR
----------------------------------- */
+/* YEAR */
 
 document.getElementById("year").textContent =
-  new Date().getFullYear();
+    new Date().getFullYear();
 
 
-/* ---------------------------------
-   NAVBAR SCROLL EFFECT
----------------------------------- */
+
+/* NAVBAR */
 
 const navbar =
-  document.querySelector(".navbar");
+    document.querySelector(".navbar");
 
 window.addEventListener("scroll", () => {
 
-  if (window.scrollY > 50) {
-    navbar.classList.add("scrolled");
-  } else {
-    navbar.classList.remove("scrolled");
-  }
+    if (window.scrollY > 50) {
 
-});
-
-
-/* ---------------------------------
-   SCROLL REVEAL
----------------------------------- */
-
-const revealElements =
-  document.querySelectorAll(".reveal");
-
-const revealObserver =
-  new IntersectionObserver(
-    (entries) => {
-
-      entries.forEach((entry) => {
-
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-
-      });
-
-    },
-    {
-      threshold: 0.12
-    }
-  );
-
-
-revealElements.forEach((element) => {
-  revealObserver.observe(element);
-});
-
-
-/* ---------------------------------
-   INITIAL HERO ANIMATION
----------------------------------- */
-
-window.addEventListener("load", () => {
-
-  const heroElements =
-    document.querySelectorAll(
-      ".hero .reveal"
-    );
-
-  heroElements.forEach(
-    (element, index) => {
-
-      setTimeout(() => {
-
-        element.classList.add(
-          "visible"
+        navbar.classList.add(
+            "scrolled"
         );
 
-      }, index * 120);
+    } else {
+
+        navbar.classList.remove(
+            "scrolled"
+        );
 
     }
-  );
 
 });
 
 
-/* ---------------------------------
-   BACKGROUND PARTICLES
----------------------------------- */
+
+/* SCROLL REVEAL */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal"
+    );
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (
+                    entry.isIntersecting
+                ) {
+
+                    entry.target
+                        .classList
+                        .add("visible");
+
+                }
+
+            });
+
+        },
+        {
+            threshold: .1
+        }
+    );
+
+revealElements.forEach(element => {
+    observer.observe(element);
+});
+
+
+
+/* LOAD HERO IMMEDIATELY */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        const heroItems =
+            document.querySelectorAll(
+                ".hero .reveal"
+            );
+
+        heroItems.forEach(
+            (element, index) => {
+
+                setTimeout(() => {
+
+                    element.classList.add(
+                        "visible"
+                    );
+
+                }, index * 120);
+
+            }
+        );
+
+    }
+);
+
+
+
+/* PARTICLES */
 
 const particleContainer =
-  document.getElementById("particles");
-
-const particleAmount = 35;
-
+    document.getElementById(
+        "particles"
+    );
 
 for (
-  let i = 0;
-  i < particleAmount;
-  i++
+    let i = 0;
+    i < 35;
+    i++
 ) {
 
-  const particle =
-    document.createElement("div");
+    const particle =
+        document.createElement(
+            "div"
+        );
 
-  particle.classList.add(
-    "particle"
-  );
+    particle.classList.add(
+        "particle"
+    );
 
-  particle.style.left =
-    Math.random() * 100 + "%";
+    particle.style.left =
+        Math.random() * 100 + "%";
 
-  particle.style.animationDuration =
-    10 + Math.random() * 15 + "s";
+    particle.style.animationDuration =
+        (
+            10 +
+            Math.random() * 18
+        ) + "s";
 
-  particle.style.animationDelay =
-    Math.random() * 15 + "s";
+    particle.style.animationDelay =
+        Math.random() * 12 + "s";
 
-  const size =
-    1 + Math.random() * 2;
+    const size =
+        Math.random() * 2 + 1;
 
-  particle.style.width =
-    size + "px";
+    particle.style.width =
+        size + "px";
 
-  particle.style.height =
-    size + "px";
+    particle.style.height =
+        size + "px";
 
-  particleContainer.appendChild(
-    particle
-  );
+    particleContainer
+        .appendChild(
+            particle
+        );
 
 }
 
 
-/* ---------------------------------
-   CUSTOM CURSOR
----------------------------------- */
 
-const cursor =
-  document.querySelector(".cursor");
+/* FAQ */
 
-const cursorOutline =
-  document.querySelector(
-    ".cursor-outline"
-  );
+const faqItems =
+    document.querySelectorAll(
+        ".faq-item"
+    );
+
+faqItems.forEach(item => {
+
+    const button =
+        item.querySelector(
+            "button"
+        );
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            const active =
+                item.classList
+                    .contains(
+                        "active"
+                    );
+
+            faqItems.forEach(other => {
+
+                other.classList.remove(
+                    "active"
+                );
+
+            });
+
+            if (!active) {
+
+                item.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+});
 
 
-let mouseX = 0;
-let mouseY = 0;
 
-let outlineX = 0;
-let outlineY = 0;
+/* IMAGE LIGHTBOX */
+
+const galleryCards =
+    document.querySelectorAll(
+        ".gallery-card"
+    );
+
+const lightbox =
+    document.getElementById(
+        "lightbox"
+    );
+
+const lightboxImage =
+    document.getElementById(
+        "lightboxImage"
+    );
+
+const closeLightbox =
+    document.getElementById(
+        "closeLightbox"
+    );
+
+
+galleryCards.forEach(card => {
+
+    card.addEventListener(
+        "click",
+        () => {
+
+            const image =
+                card.dataset.image;
+
+            lightboxImage.src =
+                image;
+
+            lightbox.classList.add(
+                "active"
+            );
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+    );
+
+});
+
+
+function closeImage() {
+
+    lightbox.classList.remove(
+        "active"
+    );
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+closeLightbox.addEventListener(
+    "click",
+    closeImage
+);
+
+
+lightbox.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            lightbox
+        ) {
+
+            closeImage();
+
+        }
+
+    }
+);
 
 
 document.addEventListener(
-  "mousemove",
-  (event) => {
+    "keydown",
+    event => {
 
-    mouseX = event.clientX;
-    mouseY = event.clientY;
+        if (
+            event.key === "Escape"
+        ) {
 
-    cursor.style.left =
-      mouseX + "px";
+            closeImage();
 
-    cursor.style.top =
-      mouseY + "px";
+        }
 
-  }
+    }
 );
 
 
-function animateCursor() {
 
-  outlineX +=
-    (mouseX - outlineX) * 0.15;
-
-  outlineY +=
-    (mouseY - outlineY) * 0.15;
-
-  cursorOutline.style.left =
-    outlineX + "px";
-
-  cursorOutline.style.top =
-    outlineY + "px";
-
-  requestAnimationFrame(
-    animateCursor
-  );
-
-}
-
-animateCursor();
-
-
-/* Cursor hover */
-
-const hoverElements =
-  document.querySelectorAll(
-    "a, button, .extension-card, .about-item"
-  );
-
-
-hoverElements.forEach((element) => {
-
-  element.addEventListener(
-    "mouseenter",
-    () => {
-
-      cursorOutline.style.width =
-        "45px";
-
-      cursorOutline.style.height =
-        "45px";
-
-      cursorOutline.style.background =
-        "rgba(255,255,255,.05)";
-
-    }
-  );
-
-
-  element.addEventListener(
-    "mouseleave",
-    () => {
-
-      cursorOutline.style.width =
-        "30px";
-
-      cursorOutline.style.height =
-        "30px";
-
-      cursorOutline.style.background =
-        "transparent";
-
-    }
-  );
-
-});
-
-
-/* ---------------------------------
-   DOWNLOAD BUTTON EFFECT
----------------------------------- */
-
-const downloadButtons =
-  document.querySelectorAll(
-    ".download-button"
-  );
-
-const toast =
-  document.getElementById("toast");
-
-const toastText =
-  document.getElementById("toast-text");
-
-
-downloadButtons.forEach(
-  (button) => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        const extensionName =
-          button.dataset.extension;
-
-        toastText.textContent =
-          extensionName;
-
-        toast.classList.add(
-          "show"
-        );
-
-
-        setTimeout(() => {
-
-          toast.classList.remove(
-            "show"
-          );
-
-        }, 2500);
-
-      }
-    );
-
-  }
-);
-
-
-/* ---------------------------------
-   3D CARD HOVER EFFECT
----------------------------------- */
+/* CARD MOUSE GLOW */
 
 const cards =
-  document.querySelectorAll(
-    ".extension-card"
-  );
+    document.querySelectorAll(
+        ".extension-card"
+    );
+
+cards.forEach(card => {
+
+    card.addEventListener(
+        "mousemove",
+        event => {
+
+            if (
+                window.innerWidth <
+                900
+            ) {
+                return;
+            }
+
+            const rect =
+                card
+                    .getBoundingClientRect();
+
+            const x =
+                event.clientX -
+                rect.left;
+
+            const y =
+                event.clientY -
+                rect.top;
+
+            const middleX =
+                rect.width / 2;
+
+            const middleY =
+                rect.height / 2;
+
+            const rotateX =
+                (
+                    (
+                        y -
+                        middleY
+                    ) /
+                    middleY
+                ) * -1.5;
+
+            const rotateY =
+                (
+                    (
+                        x -
+                        middleX
+                    ) /
+                    middleX
+                ) * 1.5;
+
+            card.style.transform =
+                `
+                perspective(1000px)
+                translateY(-10px)
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+                `;
+
+        }
+    );
 
 
-cards.forEach((card) => {
+    card.addEventListener(
+        "mouseleave",
+        () => {
 
-  card.addEventListener(
-    "mousemove",
-    (event) => {
+            card.style.transform =
+                "";
 
-      if (
-        window.innerWidth < 800
-      ) {
-        return;
-      }
-
-      const rect =
-        card.getBoundingClientRect();
-
-      const x =
-        event.clientX -
-        rect.left;
-
-      const y =
-        event.clientY -
-        rect.top;
-
-
-      const centerX =
-        rect.width / 2;
-
-      const centerY =
-        rect.height / 2;
-
-
-      const rotateX =
-        (
-          (y - centerY) /
-          centerY
-        ) * -2;
-
-      const rotateY =
-        (
-          (x - centerX) /
-          centerX
-        ) * 2;
-
-
-      card.style.transform =
-        `
-        perspective(1000px)
-        translateY(-8px)
-        rotateX(${rotateX}deg)
-        rotateY(${rotateY}deg)
-        `;
-
-    }
-  );
-
-
-  card.addEventListener(
-    "mouseleave",
-    () => {
-
-      card.style.transform = "";
-
-    }
-  );
+        }
+    );
 
 });
 
 
-/* ---------------------------------
-   SMOOTH ANCHOR LINKS
----------------------------------- */
+
+/* SMOOTH LINKS */
 
 document
-  .querySelectorAll('a[href^="#"]')
-  .forEach((link) => {
+    .querySelectorAll(
+        'a[href^="#"]'
+    )
+    .forEach(link => {
 
-    link.addEventListener(
-      "click",
-      function(event) {
+        link.addEventListener(
+            "click",
+            event => {
 
-        const target =
-          document.querySelector(
-            this.getAttribute(
-              "href"
-            )
-          );
+                const selector =
+                    link.getAttribute(
+                        "href"
+                    );
 
-        if (!target) return;
+                if (
+                    selector === "#"
+                ) {
+                    return;
+                }
 
-        event.preventDefault();
+                const target =
+                    document.querySelector(
+                        selector
+                    );
 
-        target.scrollIntoView({
-          behavior: "smooth"
-        });
+                if (!target) return;
 
-      }
-    );
+                event.preventDefault();
 
-  });
+                target.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+    });
