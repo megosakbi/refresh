@@ -1,849 +1,397 @@
-// ============================================
-// EXTENSIONS
-// ADD / REMOVE YOUR EXTENSIONS HERE
-// ============================================
+/* ---------------------------------
+   CURRENT YEAR
+---------------------------------- */
 
-const EXTENSIONS = [
-
-  {
-    name: "RBXCursor",
-
-    category: "customization",
-
-    tag: "CUSTOMIZATION",
-
-    version: "v1.0",
-
-    color: "#4ae7ff",
-
-    glow:
-      "rgba(74,231,255,.16)",
-
-    icon: "✦",
-
-    description:
-      "Custom cursors, glow effects, trails and visual cursor presets for Roblox.",
-
-    features: [
-      "Cursor FX",
-      "Glow",
-      "Trails"
-    ],
-
-    download:
-      "downloads/rbxcursor.zip"
-  },
+document.getElementById("year").textContent =
+  new Date().getFullYear();
 
 
-  {
-    name: "Theme Forge",
+/* ---------------------------------
+   NAVBAR SCROLL EFFECT
+---------------------------------- */
 
-    category: "ui",
+const navbar =
+  document.querySelector(".navbar");
 
-    tag: "UI THEMES",
+window.addEventListener("scroll", () => {
 
-    version: "v1.0",
-
-    color: "#9a6cff",
-
-    glow:
-      "rgba(154,108,255,.16)",
-
-    icon: "◫",
-
-    description:
-      "Change the default Roblox browser look with cleaner layouts and custom themes.",
-
-    features: [
-      "Themes",
-      "Dark UI",
-      "Layouts"
-    ],
-
-    download:
-      "downloads/theme-forge.zip"
-  },
-
-
-  {
-    name: "Profile Plus",
-
-    category: "profile",
-
-    tag: "PROFILE",
-
-    version: "v1.0",
-
-    color: "#b7ff5a",
-
-    glow:
-      "rgba(183,255,90,.14)",
-
-    icon: "⌁",
-
-    description:
-      "Profile tools, cleaner layouts and extra visual upgrades for Roblox pages.",
-
-    features: [
-      "Profiles",
-      "Quick UI",
-      "Layouts"
-    ],
-
-    download:
-      "downloads/profile-plus.zip"
-  },
-
-
-  {
-    name: "Neon UI Kit",
-
-    category: "ui",
-
-    tag: "UI MOD",
-
-    version: "v1.0",
-
-    color: "#ff9f4a",
-
-    glow:
-      "rgba(255,159,74,.15)",
-
-    icon: "◆",
-
-    description:
-      "Adds animated accents, hover effects and a futuristic browser UI style.",
-
-    features: [
-      "Animations",
-      "UI FX",
-      "Accents"
-    ],
-
-    download:
-      "downloads/neon-ui-kit.zip"
+  if (window.scrollY > 50) {
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
   }
 
-];
+});
 
 
-// ============================================
-// ELEMENTS
-// ============================================
+/* ---------------------------------
+   SCROLL REVEAL
+---------------------------------- */
 
-const grid =
-  document.querySelector(
-    "#extensionGrid"
+const revealElements =
+  document.querySelectorAll(".reveal");
+
+const revealObserver =
+  new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+
+      });
+
+    },
+    {
+      threshold: 0.12
+    }
   );
 
 
-const search =
-  document.querySelector(
-    "#extensionSearch"
-  );
+revealElements.forEach((element) => {
+  revealObserver.observe(element);
+});
 
 
-const filters =
-  document.querySelectorAll(
-    ".filter"
-  );
+/* ---------------------------------
+   INITIAL HERO ANIMATION
+---------------------------------- */
 
+window.addEventListener("load", () => {
 
-let currentFilter =
-  "all";
-
-
-let currentSearch =
-  "";
-
-
-// ============================================
-// ESCAPE TEXT
-// ============================================
-
-function escapeHTML(text) {
-
-  return String(text)
-    .replace(
-      /[&<>"']/g,
-
-      character => ({
-
-        "&": "&amp;",
-
-        "<": "&lt;",
-
-        ">": "&gt;",
-
-        '"': "&quot;",
-
-        "'": "&#39;"
-
-      }[character])
-
+  const heroElements =
+    document.querySelectorAll(
+      ".hero .reveal"
     );
 
-}
+  heroElements.forEach(
+    (element, index) => {
 
+      setTimeout(() => {
 
-// ============================================
-// RENDER EXTENSION CARDS
-// ============================================
-
-function renderExtensions() {
-
-  const filtered =
-    EXTENSIONS.filter(
-      extension => {
-
-        const filterMatch =
-
-          currentFilter === "all" ||
-
-          extension.category ===
-          currentFilter;
-
-
-        const searchText = `
-
-          ${extension.name}
-
-          ${extension.tag}
-
-          ${extension.description}
-
-          ${extension.features.join(" ")}
-
-        `.toLowerCase();
-
-
-        const searchMatch =
-
-          searchText.includes(
-            currentSearch.toLowerCase()
-          );
-
-
-        return (
-          filterMatch &&
-          searchMatch
+        element.classList.add(
+          "visible"
         );
 
-      }
-    );
+      }, index * 120);
 
+    }
+  );
 
-  if (!filtered.length) {
+});
 
-    grid.innerHTML = `
 
-      <div class="no-results">
+/* ---------------------------------
+   BACKGROUND PARTICLES
+---------------------------------- */
 
-        No extensions found.
+const particleContainer =
+  document.getElementById("particles");
 
-      </div>
+const particleAmount = 35;
 
-    `;
 
-    return;
+for (
+  let i = 0;
+  i < particleAmount;
+  i++
+) {
 
-  }
+  const particle =
+    document.createElement("div");
 
+  particle.classList.add(
+    "particle"
+  );
 
-  grid.innerHTML = filtered
-    .map(extension => `
+  particle.style.left =
+    Math.random() * 100 + "%";
 
-      <article
+  particle.style.animationDuration =
+    10 + Math.random() * 15 + "s";
 
-        class="extension-card reveal"
+  particle.style.animationDelay =
+    Math.random() * 15 + "s";
 
-        style="
+  const size =
+    1 + Math.random() * 2;
 
-          --accent:
-          ${extension.color};
+  particle.style.width =
+    size + "px";
 
-          --accent-soft:
-          ${extension.glow};
+  particle.style.height =
+    size + "px";
 
-        "
-
-      >
-
-        <div class="card-art">
-
-          <div class="card-grid"></div>
-
-
-          <div class="card-icon">
-
-            ${escapeHTML(
-              extension.icon
-            )}
-
-          </div>
-
-        </div>
-
-
-        <div class="card-content">
-
-          <div class="card-top">
-
-            <span class="card-tag">
-
-              ${escapeHTML(
-                extension.tag
-              )}
-
-            </span>
-
-
-            <span class="card-version">
-
-              ${escapeHTML(
-                extension.version
-              )}
-
-            </span>
-
-          </div>
-
-
-          <h3>
-
-            ${escapeHTML(
-              extension.name
-            )}
-
-          </h3>
-
-
-          <p>
-
-            ${escapeHTML(
-              extension.description
-            )}
-
-          </p>
-
-
-          <div class="card-points">
-
-            ${extension.features
-              .map(feature => `
-
-                <span>
-
-                  ${escapeHTML(
-                    feature
-                  )}
-
-                </span>
-
-              `)
-              .join("")}
-
-          </div>
-
-
-          <a
-
-            class="download-button"
-
-            href="${extension.download}"
-
-            download
-
-          >
-
-            <svg viewBox="0 0 24 24">
-
-              <path d="M12 3v12"></path>
-
-              <path d="m8 11 4 4 4-4"></path>
-
-              <path d="M5 20h14"></path>
-
-            </svg>
-
-            Download extension
-
-          </a>
-
-        </div>
-
-      </article>
-
-    `)
-    .join("");
-
-
-  setupReveal();
-
-  setupMouseHover();
+  particleContainer.appendChild(
+    particle
+  );
 
 }
 
 
-// ============================================
-// FILTER BUTTONS
-// ============================================
+/* ---------------------------------
+   CUSTOM CURSOR
+---------------------------------- */
 
-filters.forEach(
-  button => {
+const cursor =
+  document.querySelector(".cursor");
+
+const cursorOutline =
+  document.querySelector(
+    ".cursor-outline"
+  );
+
+
+let mouseX = 0;
+let mouseY = 0;
+
+let outlineX = 0;
+let outlineY = 0;
+
+
+document.addEventListener(
+  "mousemove",
+  (event) => {
+
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+
+    cursor.style.left =
+      mouseX + "px";
+
+    cursor.style.top =
+      mouseY + "px";
+
+  }
+);
+
+
+function animateCursor() {
+
+  outlineX +=
+    (mouseX - outlineX) * 0.15;
+
+  outlineY +=
+    (mouseY - outlineY) * 0.15;
+
+  cursorOutline.style.left =
+    outlineX + "px";
+
+  cursorOutline.style.top =
+    outlineY + "px";
+
+  requestAnimationFrame(
+    animateCursor
+  );
+
+}
+
+animateCursor();
+
+
+/* Cursor hover */
+
+const hoverElements =
+  document.querySelectorAll(
+    "a, button, .extension-card, .about-item"
+  );
+
+
+hoverElements.forEach((element) => {
+
+  element.addEventListener(
+    "mouseenter",
+    () => {
+
+      cursorOutline.style.width =
+        "45px";
+
+      cursorOutline.style.height =
+        "45px";
+
+      cursorOutline.style.background =
+        "rgba(255,255,255,.05)";
+
+    }
+  );
+
+
+  element.addEventListener(
+    "mouseleave",
+    () => {
+
+      cursorOutline.style.width =
+        "30px";
+
+      cursorOutline.style.height =
+        "30px";
+
+      cursorOutline.style.background =
+        "transparent";
+
+    }
+  );
+
+});
+
+
+/* ---------------------------------
+   DOWNLOAD BUTTON EFFECT
+---------------------------------- */
+
+const downloadButtons =
+  document.querySelectorAll(
+    ".download-button"
+  );
+
+const toast =
+  document.getElementById("toast");
+
+const toastText =
+  document.getElementById("toast-text");
+
+
+downloadButtons.forEach(
+  (button) => {
 
     button.addEventListener(
       "click",
       () => {
 
-        filters.forEach(
-          item => {
+        const extensionName =
+          button.dataset.extension;
 
-            item.classList.remove(
-              "active"
-            );
+        toastText.textContent =
+          extensionName;
 
-          }
+        toast.classList.add(
+          "show"
         );
 
 
-        button.classList.add(
-          "active"
-        );
+        setTimeout(() => {
 
-
-        currentFilter =
-          button.dataset.filter;
-
-
-        renderExtensions();
-
-      }
-    );
-
-  }
-);
-
-
-// ============================================
-// SEARCH
-// ============================================
-
-search.addEventListener(
-  "input",
-  () => {
-
-    currentSearch =
-      search.value.trim();
-
-
-    renderExtensions();
-
-  }
-);
-
-
-// ============================================
-// SCROLL ANIMATIONS
-// ============================================
-
-let revealObserver;
-
-
-function setupReveal() {
-
-  if (!revealObserver) {
-
-    revealObserver =
-
-      new IntersectionObserver(
-
-        entries => {
-
-          entries.forEach(
-            entry => {
-
-              if (
-                entry.isIntersecting
-              ) {
-
-                entry.target
-                  .classList
-                  .add(
-                    "visible"
-                  );
-
-
-                revealObserver
-                  .unobserve(
-                    entry.target
-                  );
-
-              }
-
-            }
+          toast.classList.remove(
+            "show"
           );
 
-        },
-
-        {
-          threshold: .12
-        }
-
-      );
-
-  }
-
-
-  document
-    .querySelectorAll(
-      ".reveal:not(.visible)"
-    )
-    .forEach(
-      element => {
-
-        revealObserver.observe(
-          element
-        );
+        }, 2500);
 
       }
     );
 
-}
+  }
+);
 
 
-// ============================================
-// AVATAR PARALLAX
-// ============================================
+/* ---------------------------------
+   3D CARD HOVER EFFECT
+---------------------------------- */
 
-const avatarPanel =
-  document.querySelector(
-    "#avatarPanel"
+const cards =
+  document.querySelectorAll(
+    ".extension-card"
   );
 
 
-const heroAvatar =
-  document.querySelector(
-    "#heroAvatar"
-  );
+cards.forEach((card) => {
 
-
-if (
-  avatarPanel &&
-  heroAvatar
-) {
-
-  avatarPanel.addEventListener(
+  card.addEventListener(
     "mousemove",
-    event => {
+    (event) => {
+
+      if (
+        window.innerWidth < 800
+      ) {
+        return;
+      }
 
       const rect =
-        avatarPanel
-          .getBoundingClientRect();
-
+        card.getBoundingClientRect();
 
       const x =
-
-        (
-          event.clientX -
-          rect.left
-        ) /
-
-        rect.width -
-
-        .5;
-
+        event.clientX -
+        rect.left;
 
       const y =
+        event.clientY -
+        rect.top;
 
+
+      const centerX =
+        rect.width / 2;
+
+      const centerY =
+        rect.height / 2;
+
+
+      const rotateX =
         (
-          event.clientY -
-          rect.top
-        ) /
+          (y - centerY) /
+          centerY
+        ) * -2;
 
-        rect.height -
+      const rotateY =
+        (
+          (x - centerX) /
+          centerX
+        ) * 2;
 
-        .5;
 
-
-      heroAvatar.style.transform = `
-
-        translate(
-
-          ${x * 13}px,
-
-          ${y * 8}px
-
-        )
-
-        rotateY(
-          ${x * 5}deg
-        )
-
-      `;
+      card.style.transform =
+        `
+        perspective(1000px)
+        translateY(-8px)
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+        `;
 
     }
   );
 
 
-  avatarPanel.addEventListener(
+  card.addEventListener(
     "mouseleave",
     () => {
 
-      heroAvatar.style.transform =
-        "";
+      card.style.transform = "";
 
     }
   );
 
-}
+});
 
 
-// ============================================
-// CUSTOM CURSOR
-// ============================================
+/* ---------------------------------
+   SMOOTH ANCHOR LINKS
+---------------------------------- */
 
-const mouseDot =
-  document.querySelector(
-    "#mouseDot"
-  );
+document
+  .querySelectorAll('a[href^="#"]')
+  .forEach((link) => {
 
+    link.addEventListener(
+      "click",
+      function(event) {
 
-const mouseRing =
-  document.querySelector(
-    "#mouseRing"
-  );
+        const target =
+          document.querySelector(
+            this.getAttribute(
+              "href"
+            )
+          );
 
+        if (!target) return;
 
-const finePointer =
+        event.preventDefault();
 
-  window
-    .matchMedia(
-      "(pointer:fine)"
-    )
-    .matches;
-
-
-if (
-  finePointer &&
-  mouseDot &&
-  mouseRing
-) {
-
-  document.body.classList.add(
-    "cursor-on"
-  );
-
-
-  let mouseX =
-    innerWidth / 2;
-
-
-  let mouseY =
-    innerHeight / 2;
-
-
-  let ringX =
-    mouseX;
-
-
-  let ringY =
-    mouseY;
-
-
-  document.addEventListener(
-    "mousemove",
-    event => {
-
-      mouseX =
-        event.clientX;
-
-
-      mouseY =
-        event.clientY;
-
-
-      mouseDot.style.transform = `
-
-        translate3d(
-
-          ${mouseX}px,
-
-          ${mouseY}px,
-
-          0
-
-        )
-
-      `;
-
-    },
-
-    {
-      passive: true
-    }
-
-  );
-
-
-  function animateRing() {
-
-    ringX +=
-
-      (
-        mouseX -
-        ringX
-      )
-
-      * .16;
-
-
-    ringY +=
-
-      (
-        mouseY -
-        ringY
-      )
-
-      * .16;
-
-
-    mouseRing.style.transform = `
-
-      translate3d(
-
-        ${ringX}px,
-
-        ${ringY}px,
-
-        0
-
-      )
-
-    `;
-
-
-    requestAnimationFrame(
-      animateRing
-    );
-
-  }
-
-
-  animateRing();
-
-}
-
-
-// ============================================
-// HOVER CURSOR
-// ============================================
-
-function setupMouseHover() {
-
-  document
-    .querySelectorAll(
-      "a, button, input, summary, .extension-card"
-    )
-    .forEach(
-      element => {
-
-        if (
-          element.dataset.mouseBound
-        ) {
-          return;
-        }
-
-
-        element.dataset.mouseBound =
-          "1";
-
-
-        element.addEventListener(
-          "mouseenter",
-          () => {
-
-            document.body
-              .classList
-              .add(
-                "cursor-hover"
-              );
-
-          }
-        );
-
-
-        element.addEventListener(
-          "mouseleave",
-          () => {
-
-            document.body
-              .classList
-              .remove(
-                "cursor-hover"
-              );
-
-          }
-        );
+        target.scrollIntoView({
+          behavior: "smooth"
+        });
 
       }
     );
 
-}
-
-
-// ============================================
-// FAQ
-// ============================================
-
-document
-  .querySelectorAll(
-    ".faq-list details"
-  )
-  .forEach(
-    item => {
-
-      item.addEventListener(
-        "toggle",
-        () => {
-
-          if (!item.open) {
-            return;
-          }
-
-
-          document
-            .querySelectorAll(
-              ".faq-list details"
-            )
-            .forEach(
-              other => {
-
-                if (
-                  other !== item
-                ) {
-
-                  other.open =
-                    false;
-
-                }
-
-              }
-            );
-
-        }
-      );
-
-    }
-  );
-
-
-// ============================================
-// INITIALIZE
-// ============================================
-
-renderExtensions();
-
-setupReveal();
-
-setupMouseHover();
+  });
