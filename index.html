@@ -80,6 +80,39 @@
     .btn { width: 100%; justify-content: center; }
     footer { flex-direction: column; }
   }
+
+/* Purple visual refresh */
+:root{--bg:#0d0a15;--panel:#171222;--panel2:#21192f;--line:#332741;--text:#f1ebff;--dim:#a298b5;--accent:#a174ff;--accent2:#d4baff}
+body{min-height:100vh;background:radial-gradient(ellipse at 17% 35%,#7134ca20,transparent 47%),radial-gradient(ellipse at 85% 40%,#5f36c529,transparent 40%),#0d0a15;background-attachment:fixed}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(#c3a0ff24 .8px,transparent .8px);background-size:25px 25px;mask-image:linear-gradient(#0009,transparent);z-index:-1}
+.wrap{width:min(1200px,100%);padding:0 34px}
+nav{border-bottom-color:#c9a4ff15;padding:25px 0}
+.logo .dot{background:linear-gradient(135deg,#c7a8ff,#7e47e8);color:#1d1030;box-shadow:0 0 25px #9b5afc40}
+.chip{color:#cfb4ff;border-color:#a174ff44;background:#a174ff0c}
+header.hero{min-height:660px;grid-template-columns:1.1fr 1fr;gap:95px;align-items:center;padding:75px 0 90px}
+h1{font-size:clamp(42px,5vw,67px);line-height:1.06;letter-spacing:-3px;max-width:620px;font-weight:850}
+h1 span{background:linear-gradient(110deg,#fff,#c7abff 55%,#9868f2);background-clip:text;-webkit-text-fill-color:transparent}
+.lead{font-size:17px;line-height:1.8;color:#aea2bf;max-width:490px}
+.btn{background:linear-gradient(110deg,#9560f5,#7643de);color:white;border:1px solid #c69dff55;box-shadow:0 10px 45px #8b48ef30;border-radius:14px;padding:17px 30px;opacity:1;cursor:default}
+.meta{color:#9c8eaf;font-size:12px}
+.preview{width:100%;max-width:420px;padding:28px;border:1px solid #b78eff40;border-radius:24px;background:linear-gradient(145deg,#2c2140e8,#171120);box-shadow:0 35px 90px #0008,0 0 80px #9149e71a;transform:perspective(1000px) rotateY(-7deg) rotateX(3deg);position:relative;animation:float 7s ease-in-out infinite}
+.preview:before{content:"INTERFACE PREVIEW";display:block;font-size:9px;letter-spacing:3px;color:#c8a8ff;margin-bottom:24px}
+.preview .brand{font-size:20px}.preview .brand b{color:#c8a8ff}.preview .sub{margin:9px 0 24px;color:#a99aba}
+.preview .field{background:#120d1e;border:1px solid #76569b55;border-radius:10px;padding:15px;font-size:13px}
+.preview .find{background:#7550ac;color:#fff;border-radius:10px;padding:14px}
+.preview .card{background:#ffffff04;border:1px solid #c3a0ff20;border-radius:14px;padding:20px;margin:18px 0}
+.preview .av{background:linear-gradient(135deg,#bc96f4,#6d41a4);color:#fff;width:56px;height:56px}
+.preview .dn{font-size:16px}.preview .un{font-size:12px}.preview .pill{background:#a174ff20;color:#d5baff}
+.preview .join{background:linear-gradient(110deg,#a174ff,#7850c8);color:#fff;padding:16px;border-radius:11px}
+section{border-top:1px solid #c9a4ff14;padding:55px 0}
+h2{font-size:29px;letter-spacing:-1px}.sec-lead{color:#a298b5}
+.grid{gap:16px}.grid .card{background:linear-gradient(145deg,#20172d,#15101e);border:1px solid #ac7cff24;border-radius:17px;padding:25px;transition:transform .25s,border-color .25s}
+.grid .card:hover{transform:translateY(-5px);border-color:#aa7afa77}.grid .ic{background:#ab76ff18}
+footer{color:#8d7c9f;border-top-color:#a174ff22}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -12px}}
+@media(prefers-reduced-motion:reduce){.preview{animation:none}.grid .card{transition:none}}
+@media(max-width:860px){header.hero{grid-template-columns:1fr;gap:48px;min-height:auto;padding:55px 0}.preview{transform:none;margin:0 auto 30px}h1{letter-spacing:-2px}.wrap{padding:0 22px}}
+
 </style>
 </head>
 <body>
@@ -87,7 +120,7 @@
 
   <nav>
     <div class="logo"><span class="dot">IJ</span> Instant Join</div>
-    <span class="chip">v1.1.0</span>
+    <span class="chip">DESIGN PREVIEW</span>
   </nav>
 
   <header class="hero">
@@ -157,7 +190,7 @@
 
   <footer>
     <div>Instant Join — unofficial, not affiliated with Roblox Corporation.</div>
-    <div>v1.1.0</div>
+    <div>DESIGN PREVIEW</div>
   </footer>
 </div>
 
